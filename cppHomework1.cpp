@@ -7,17 +7,17 @@
 // bucket sort
 void bucketSort(std::vector<float>& v, float range, int n){
 	std::vector<float> buckets[n];
-	for(int k=0; i< n; ++i){
-		int ind = std::floor(v(i)*((n-1)/range));
-		buckets[ind].push_back(v(i));
+	for(int k=0; k< n; ++k){
+		int ind = std::floor(v(k)*((n-1)/range));
+		buckets[ind].push_back(v(k));
 	}
-	for(int k=0; k <n ;++i){
-		sort(buckets[k].begin(),buckets[k].end())
+	for(int k=0; k <n ;++k){
+		sort(buckets[k].begin(),buckets[k].end());
 		//bucketSort(buckets[k], 'wat is range?')
 	}
 	int index = 0;
-	for(int k=0; k <n ;++i){
-		for (int m = 0; m < size(b[k]); ++m)
+	for(int k=0; k <n ;++k){
+		for (int m = 0; m < b[k].size(); ++m)
 		v(index++) = b[k](m);
 	}
 }
@@ -34,6 +34,7 @@ int main( int argc, float argv[]){
 	float r = (float) argv[1];
 	int numExp = (int) argv[2];
 	int disExp = (int) argv[3];
+	int numBuckets = (int) argv[4];
 
 //	
 for(int j = 1;j < size + 1 ; ++j){
@@ -72,7 +73,7 @@ for(int j = 1;j < size + 1 ; ++j){
 		//Start timing
 		clock_gettime(CLOCK_MONOTONIC, &l_start);
 		
-		bucketSort(v,r);
+		bucketSort(v,r,m);
 	
 		//Stop timing
 		clock_gettime(CLOCK_MONOTONIC, &l_end);
