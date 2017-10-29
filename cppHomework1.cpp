@@ -94,7 +94,7 @@ for(int j = 1;j < size + 1 ; ++j){
 		if(i > disExp){
 			meanExp2 = meanExp2 + elapsed_time2;
 			timeSample2.push_back(elapsed_time2);
-		}*/
+		}
 	}
 	//Calculate mean and standard deviation of all the experiments
 	/*double dif = numExp-disExp;
