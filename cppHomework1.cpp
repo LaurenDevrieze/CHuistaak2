@@ -23,10 +23,13 @@ void bucketSort(std::vector<double>& v, double range, int n){
 	int index = 0;
 	for(int k=0; k < n ;++k){
 		
-		//for (int m = 0; m < buckets[k].size(); ++m)
-		for(auto el: buckets[k]){
-		v[index++] = el;
+		if(!buckets[k].empty()){
+			for(auto el: buckets[k]){
+				v[index++] = el;
+			}
 		}
+		//for (int m = 0; m < buckets[k].size(); ++m)
+		
 	}
 
 }
