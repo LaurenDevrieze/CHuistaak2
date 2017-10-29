@@ -97,7 +97,7 @@ for(int j = 1;j < size + 1 ; ++j){
 		}
 	}
 	//Calculate mean and standard deviation of all the experiments
-	double dif = numExp-disExp;
+	/*double dif = numExp-disExp;
 	meanExp1 = meanExp1/(dif);
 	meanExp2 = meanExp2/(dif);
 	for(int i = 0; i < numExp-disExp; ++i){
@@ -107,7 +107,7 @@ for(int j = 1;j < size + 1 ; ++j){
 	stdev1 = sqrt((stdev1)/(dif));
 	stdev2 = sqrt((stdev2)/(dif));
 	std::cout<<j<<" "<<meanExp1<<" "<<stdev1<<std::endl;
-	std::cout<<j<<" "<<meanExp2<<" "<<stdev2<<std::endl;
+	std::cout<<j<<" "<<meanExp2<<" "<<stdev2<<std::endl;*/
 }
 	return 0;
 }
