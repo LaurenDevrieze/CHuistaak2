@@ -12,7 +12,7 @@ void bucketSort(std::vector<double>& v, double range, int n){
 	std::vector<double> buckets[n];
 	//Put the elements of v in buckets according to hash function ind
 	for(int k=0; k< n; ++k){
-		int ind = 0; //std::floor(v[k]*((double)(n-1)/range));
+		int ind = 0;  //std::floor(v[k]*((double)(n-1)/range));
 		buckets[ind].push_back(v[k]);
 	}
 	//Sort the elements in the buckets
