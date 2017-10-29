@@ -62,7 +62,7 @@ for(int j = 1;j < size + 1 ; ++j){
 	double stdev2 = 0;
 	struct timespec l_start, l_end;
 	std::vector<double> timeSample1, timeSample2;
-	//
+	
 	for(int i = 0; i < numExp+1; ++i){
 		
 		//shuffle v with the given random number generator
@@ -82,7 +82,7 @@ for(int j = 1;j < size + 1 ; ++j){
 			timeSample1.push_back(elapsed_time1);
 		}
 		
-		/*//Start timing
+		//Start timing
 		clock_gettime(CLOCK_MONOTONIC, &l_start);
 		
 		bucketSort(v,r,m);
@@ -94,13 +94,13 @@ for(int j = 1;j < size + 1 ; ++j){
 		if(i > disExp){
 			meanExp2 = meanExp2 + elapsed_time2;
 			timeSample2.push_back(elapsed_time2);
-		}*/
+		}
 	}
 	//Calculate mean and standard deviation of all the experiments
 	double dif = numExp-disExp;
 	meanExp1 = meanExp1/(dif);
 	meanExp2 = meanExp2/(dif);
-	for(int i = disExp + 1; i < numExp + 1 ; ++i){
+	for(int i = 0; i < numExp-disExp; ++i){
 		stdev1 += pow(timeSample1[i] - meanExp1,2);
 		stdev2 += pow(timeSample2[i] - meanExp2,2);
 	}
