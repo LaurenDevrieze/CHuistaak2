@@ -115,7 +115,7 @@ for(int j = 1;j < size + 1 ; ++j){
 	stdev1 = sqrt((stdev1)/(dif));
 	stdev2 = sqrt((stdev2)/(dif));
 	std::cout<<j<<" "<<meanExp1<<" "<<stdev1<<std::endl;
-	std::cout<<j<<" "<<meanExp2<<" "<<stdev2<<std::endl;
+	//std::cout<<j<<" "<<meanExp2<<" "<<stdev2<<std::endl;
 }
 	return 0;
 }
