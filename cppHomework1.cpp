@@ -24,7 +24,7 @@ void bucketSort(std::vector<double>& v, double range, int n){
 	for(int k=0; k < n ;++k){
 		
 		//for (int m = 0; m < buckets[k].size(); ++m)
-		for(auto el: buckets[k]){}
+		for(auto el: buckets[k]){
 		v[index++] = el[m];
 	}
 
