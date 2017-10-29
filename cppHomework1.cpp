@@ -7,21 +7,21 @@
 // bucket sort
 void bucketSort(vector<float>& v, float range){
 	std::vector<float> buckets[size(v)];
-		for(int k=0; i< size(v); ++i){
-			int ind = std::floor(v(i)*((size(v)-1)/range));
-			buckets[ind].push_back(v(i));
-		}
-		for(int k=0; k <n ;++i){
-			sort(buckets[k].begin(),buckets[k].end())
-			//bucketSort(buckets[k], 'wat is range?')
-		}
-		int index = 0;
-		for(int k=0; k <n ;++i){
-			for (int m = 0; m < b[k].size(); ++m)
-			v(index++) = b[k](m);
-		}
+	for(int k=0; i< size(v); ++i){
+		int ind = std::floor(v(i)*((size(v)-1)/range));
+		buckets[ind].push_back(v(i));
+	}
+	for(int k=0; k <n ;++i){
+		sort(buckets[k].begin(),buckets[k].end())
+		//bucketSort(buckets[k], 'wat is range?')
+	}
+	int index = 0;
+	for(int k=0; k <n ;++i){
+		for (int m = 0; m < b[k].size(); ++m)
+		v(index++) = b[k](m);
 	}
 }
+
 
 int main( int argc, float argv[]){
 	/* 	argv[0] = size
