@@ -82,10 +82,10 @@ for(int j = 1;j < size + 1 ; ++j){
 			timeSample1.push_back(elapsed_time1);
 		}
 		
-		/*//Start timing
+		//Start timing
 		clock_gettime(CLOCK_MONOTONIC, &l_start);
 		
-		bucketSort(v,r,m);
+		//bucketSort(v,r,m);
 	
 		//Stop timing
 		clock_gettime(CLOCK_MONOTONIC, &l_end);
