@@ -104,8 +104,8 @@ for(int j = 1;j < size + 1 ; ++j){
 		stdev1 += pow(timeSample1[i] - meanExp1,2);
 		stdev2 += pow(timeSample2[i] - meanExp2,2);
 	}
-	stdev1 = sqrt((stdev1)/(dif);
-	stdev2 = sqrt((stdev2)/(dif)
+	stdev1 = sqrt((stdev1)/(dif));
+	stdev2 = sqrt((stdev2)/(dif));
 	std::cout<<j<<" "<<meanExp1<<" "<<stdev1<<std::endl;
 	std::cout<<j<<" "<<meanExp2<<" "<<stdev2<<std::endl;
 }
