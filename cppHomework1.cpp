@@ -5,10 +5,10 @@
 // misschien nog andere packages ontbreken
 
 // bucket sort
-void bucketSort(vector<float>& v, float range){
-	std::vector<float> buckets[size(v)];
-	for(int k=0; i< size(v); ++i){
-		int ind = std::floor(v(i)*((size(v)-1)/range));
+void bucketSort(std::vector<float>& v, float range, int n){
+	std::vector<float> buckets[n];
+	for(int k=0; i< n; ++i){
+		int ind = std::floor(v(i)*((n-1)/range));
 		buckets[ind].push_back(v(i));
 	}
 	for(int k=0; k <n ;++i){
@@ -17,7 +17,7 @@ void bucketSort(vector<float>& v, float range){
 	}
 	int index = 0;
 	for(int k=0; k <n ;++i){
-		for (int m = 0; m < b[k].size(); ++m)
+		for (int m = 0; m < size(b[k]); ++m)
 		v(index++) = b[k](m);
 	}
 }
@@ -86,6 +86,7 @@ for(int j = 1;j < size + 1 ; ++j){
 	meanExp2 = meanExp2/((float)(numExp-disExp));
 	
 	std::cout<<meanExp1<<" "<<meanExp2<<std::endl;
+	return 0;
 }
 
 }
