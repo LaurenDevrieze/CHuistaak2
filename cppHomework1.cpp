@@ -11,7 +11,7 @@ void bucketSort(std::vector<double>& v, double range, int n){
 	//n = amount of buckets
 	std::vector<double> buckets[n];
 	//Put the elements of v in buckets according to hash function ind
-	for(int k=0; k< n; ++k){
+	for(int k=0; k< v.size(); ++k){
 		int ind = 0; //std::floor((v[k]*((double)(n)/(double) range))-1); 
 		// hier zat memory corruption error
 		buckets[ind].push_back(v[k]);
@@ -26,8 +26,7 @@ void bucketSort(std::vector<double>& v, double range, int n){
 		
 		if(!buckets[k].empty()){
 			for(auto el: buckets[k]){
-				index++;
-				std::cout<<index<<std::endl;
+				std::cout<<++index<<std::endl;
 				
 				//v[++index] = el;
 			}
