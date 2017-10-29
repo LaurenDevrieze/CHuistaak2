@@ -21,7 +21,7 @@ void bucketSort(std::vector<double>& v, double range, int n){
 	}
 	//Put the elements of the buckets back in the vector
 	int index = 0;
-	for(int k=0; k <n ;++k){
+	for(int k=0; k < n ;++k){
 		for (int m = 0; m < buckets[k].size(); ++m)
 		v[index++] = buckets[k][m];
 	}
@@ -79,7 +79,7 @@ for(int j = 1;j < size + 1 ; ++j){
 		
 		if(i > disExp){
 			meanExp1 = meanExp1 + elapsed_time1;
-			timeSample1[i] = elapsed_time1;
+			timeSample1.push_back(elapsed_time1);
 		}
 		
 		/*//Start timing
@@ -93,7 +93,7 @@ for(int j = 1;j < size + 1 ; ++j){
 		
 		if(i > disExp){
 			meanExp2 = meanExp2 + elapsed_time2;
-			timeSample2[i] = elapsed_time2;
+			timeSample2.push_back(elapsed_time2);
 		}*/
 	}
 	//Calculate mean and standard deviation of all the experiments
