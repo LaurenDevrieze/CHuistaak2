@@ -97,15 +97,15 @@ for(int j = 1;j < size + 1 ; ++j){
 		}
 	}
 	//Calculate mean and standard deviation of all the experiments
-	meanExp1 = meanExp1/((double)(numExp-disExp));
-	meanExp2 = meanExp2/((double)(numExp-disExp));
+	double dif = numExp-disExp;
+	meanExp1 = meanExp1/(dif);
+	meanExp2 = meanExp2/(dif);
 	for(int i = disExp + 1; i < numExp + 1 ; ++i){
 		stdev1 += pow(timeSample1[i] - meanExp1,2);
 		stdev2 += pow(timeSample2[i] - meanExp2,2);
 	}
-	stdev1 = sqrt((stdev1)/((double)(numExp-disExp)));
-	stdev2 = sqrt((stdev2)/((double)(numExp-disExp)));
-	
+	stdev1 = sqrt((stdev1)/(dif);
+	stdev2 = sqrt((stdev2)/(dif)
 	std::cout<<j<<" "<<meanExp1<<" "<<stdev1<<std::endl;
 	std::cout<<j<<" "<<meanExp2<<" "<<stdev2<<std::endl;
 }
