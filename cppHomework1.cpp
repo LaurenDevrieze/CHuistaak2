@@ -33,14 +33,14 @@ int main( int argc, char* argv[]){
 	
 	// String nog omzetten naar int
 	std::cout<<argv[0]<<std::endl;
-	int size = std::stoi(argv[0]);
+	/*int size = std::stoi(argv[0]);
 	float r = std::stof(argv[1]);
 	int numExp = std::stoi(argv[2]);
 	int disExp = std::stoi(argv[3]);
-	int m = std::stoi(argv[4]);
+	int m = std::stoi(argv[4]);*/
 
 //	
-for(int j = 1;j < size + 1 ; ++j){
+/*for(int j = 1;j < size + 1 ; ++j){
 	
 	//initialeer vector with size j
 	std::vector<float> v(j,1);
@@ -90,9 +90,9 @@ for(int j = 1;j < size + 1 ; ++j){
 	meanExp2 = meanExp2/((float)(numExp-disExp));
 	
 	std::cout<<meanExp1<<" "<<meanExp2<<std::endl;
+	
+}*/
 	return 0;
-}
-
 }
 
 
