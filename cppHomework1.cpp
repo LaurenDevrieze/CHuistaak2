@@ -21,7 +21,7 @@ void bucketSort(std::vector<float>& v, float range, int n){
 		for (int m = 0; m < buckets[k].size(); ++m)
 		v[index++] = buckets[k][m];
 	}
-	delete buckets[n];
+	delete[] buckets[n];
 }
 
 
@@ -92,7 +92,7 @@ for(int j = 1;j < size + 1 ; ++j){
 	
 	std::cout<<meanExp1<<" "<<meanExp2<<std::endl;
 	
-	delete v;
+	delete[] v;
 	
 }
 	return 0;
