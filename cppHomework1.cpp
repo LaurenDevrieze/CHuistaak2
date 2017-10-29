@@ -55,7 +55,7 @@ for(int j = 1;j < size + 1 ; ++j){
 	
 	float meanExp1 = 0;
 	float meanExp2 = 0;
-	for(int i = 0; i < numExp+1; ++i){
+/*	for(int i = 0; i < numExp+1; ++i){
 		
 		//shuffle v with the given random number generator
 		std::shuffle(v.begin(), v.end(), std::mt19937{std::random_device{}()});
@@ -92,9 +92,8 @@ for(int j = 1;j < size + 1 ; ++j){
 	
 	std::cout<<meanExp1<<" "<<meanExp2<<std::endl;
 	
-	delete[] v;
 	
-}
+}*/
 	return 0;
 }
 
