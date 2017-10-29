@@ -7,12 +7,12 @@
 #include <time.h>
 
 // Bucket sort function
-void bucketSort(std::vector<float>& v, float range, int n){
+void bucketSort(std::vector<double>& v, double range, int n){
 	//n = amount of buckets
-	std::vector<float> buckets[n];
+	std::vector<double> buckets[n];
 	//Put the elements of v in buckets according to hash function ind
 	for(int k=0; k< n; ++k){
-		int ind = std::floor(v[k]*((float)(n-1)/range));
+		int ind = std::floor(v[k]*((double)(n-1)/range));
 		buckets[ind].push_back(v[k]);
 	}
 	//Sort the elements in the buckets
@@ -38,7 +38,7 @@ int main( int argc, char* argv[]){
 	
 	//Assign the input arguments to variables
 	int size = std::atoi(argv[1]);
-	float r = std::atof(argv[2]);
+	double r = std::atof(argv[2]);
 	int numExp = std::atoi(argv[3]);
 	int disExp = std::atoi(argv[4]);
 	int m = std::atoi(argv[5]);
@@ -46,7 +46,7 @@ int main( int argc, char* argv[]){
 for(int j = 1;j < size + 1 ; ++j){
 	
 	//Initialize vector with size j
-	std::vector<float> v(j,1);
+	std::vector<double> v(j,1);
 	
 	//Give the vector a random distribution with range r
 	std::random_device rd;
@@ -56,10 +56,12 @@ for(int j = 1;j < size + 1 ; ++j){
 		vi=distribution(generator);
 	}
 	
-	float meanExp1 = 0;
-	float meanExp2 = 0;
+	double meanExp1 = 0;
+	double meanExp2 = 0;
+	double stdev1 = 0;
+	double stdev2 = 0;
 	struct timespec l_start, l_end;
-	std::vector<float> timesample1, timeSample2
+	std::vector<double> timesample1, timeSample2;
 	//
 	for(int i = 0; i < numExp+1; ++i){
 		
@@ -95,14 +97,14 @@ for(int j = 1;j < size + 1 ; ++j){
 		}
 	}
 	//Calculate mean and standard deviation of all the experiments
-	meanExp1 = meanExp1/((float)(numExp-disExp));
-	meanExp2 = meanExp2/((float)(numExp-disExp));
+	meanExp1 = meanExp1/((double)(numExp-disExp));
+	meanExp2 = meanExp2/((double)(numExp-disExp));
 	for(int i = disExp + 1; i < numExp + 1 ; ++i){
 		stdev1 += pow(timeSample1[i] - meanExp1,2);
 		stdev2 += pow(timeSample2[i] - meanExp2,2);
 	}
-	stdev1 = sqrt((stdev1)/((float)(numExp-disExp)));
-	stdev2 = sqrt((stdev2)/((float)(numExp-disExp)));
+	stdev1 = sqrt((stdev1)/((double)(numExp-disExp)));
+	stdev2 = sqrt((stdev2)/((double)(numExp-disExp)));
 	
 	std::cout<<j<<" "<<meanExp1<<" "<<stdev1<<std::endl;
 	std::cout<<j<<" "<<meanExp2<<" "<<stdev2<<std::endl;
