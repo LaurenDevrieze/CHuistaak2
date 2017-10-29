@@ -32,11 +32,11 @@ int main( int argc, char* argv[]){
 		argv[4] = number of buckets */
 	
 	// String nog omzetten naar int
-	int size = stoi(argv[0]);
-	float r = stof(argv[1]);
-	int numExp = stoi(argv[2]);
-	int disExp = stoi(argv[3]);
-	int m = stoi(argv[4]);
+	int size = std::stoi(argv[0]);
+	float r = std::stof(argv[1]);
+	int numExp = std::stoi(argv[2]);
+	int disExp = std::stoi(argv[3]);
+	int m = std::stoi(argv[4]);
 
 //	
 for(int j = 1;j < size + 1 ; ++j){
