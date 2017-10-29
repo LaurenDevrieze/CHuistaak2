@@ -61,7 +61,7 @@ for(int j = 1;j < size + 1 ; ++j){
 	double stdev1 = 0;
 	double stdev2 = 0;
 	struct timespec l_start, l_end;
-	std::vector<double> timesample1, timeSample2;
+	std::vector<double> timeSample1, timeSample2;
 	//
 	for(int i = 0; i < numExp+1; ++i){
 		
