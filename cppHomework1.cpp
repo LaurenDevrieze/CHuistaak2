@@ -4,7 +4,26 @@
 #include <algorithm>
 // misschien nog andere packages ontbreken
 
-int main( int argc, char* argv[]){
+// bucket sort
+void bucketSort(vector<float>& v, float range){
+	std::vector<float> buckets[size(v)];
+		for(int k=0; i< size(v); ++i){
+			int ind = std::floor(v(i)*((size(v)-1)/range));
+			buckets[ind].push_back(v(i));
+		}
+		for(int k=0; k <n ;++i){
+			sort(buckets[k].begin(),buckets[k].end())
+			//bucketSort(buckets[k], 'wat is range?')
+		}
+		int index = 0;
+		for(int k=0; k <n ;++i){
+			for (int m = 0; m < b[k].size(); ++m)
+			v(index++) = b[k](m);
+		}
+	}
+}
+
+int main( int argc, float argv[]){
 	/* 	argv[0] = size
 		argv[1] = range
 		argv[2] = number of experiments
@@ -12,7 +31,7 @@ int main( int argc, char* argv[]){
 	
 	// String nog omzetten naar int
 	int size = (int) argv[0];
-	float r = (int) argv[1];
+	float r = (float) argv[1];
 	int numExp = (int) argv[2];
 	int disExp = (int) argv[3];
 
@@ -29,7 +48,8 @@ for(int j = 1;j < size + 1 ; ++j){
 		vi=distribution(generator);
 	}
 	
-	
+	float meanExp1 = 0;
+	float meanExp2 = 0;
 	for(int i = 0; i < numExp+1; ++i){
 		
 		//shuffle v with the given random number generator
@@ -62,31 +82,14 @@ for(int j = 1;j < size + 1 ; ++j){
 			meanExp2 = meanExp2 + elapsed_time2;
 		}
 	}
-	meanExp1 = meanExp1/(numExp-disExp);
-	meanExp2 = meanExp2/(numExp-disExp);
+	meanExp1 = meanExp1/((float)(numExp-disExp));
+	meanExp2 = meanExp2/((float)(numExp-disExp));
 	
 	std::cout<<meanExp1<<" "<<meanExp2<<std::endl;
 }
 
 }
 
-//// bucket sort
-void bucketSort(vector<float> v, float range){
-	std::vector<float> buckets[size(v)];
-		for(int k=0; i< size(v); ++i){
-			int ind = std::floor(v(i)*((size(v)-1)/range));
-			buckets[ind].push_back(v(i));
-		}
-		for(int k=0; k <n ;++i){
-			sort(buckets[k].begin(),buckets[k].end())
-			//bucketSort(buckets[k], 'wat is range?')
-		}
-		int index = 0;
-		for(int k=0; k <n ;++i){
-			for (int m = 0; m < b[k].size(); ++m)
-			v(index++) = b[k][m];
-		}
-	}
-}
+
 
 //pdflatex -shell-escape -interaction=nonstopmode plot.tex
