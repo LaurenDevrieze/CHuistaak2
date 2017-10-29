@@ -2,6 +2,7 @@
 #include <cstdlib>
 #include <random>
 #include <algorithm>
+#include <string>
 // misschien nog andere packages ontbreken
 
 // bucket sort
@@ -18,7 +19,7 @@ void bucketSort(std::vector<float>& v, float range, int n){
 	int index = 0;
 	for(int k=0; k <n ;++k){
 		for (int m = 0; m < buckets[k].size(); ++m)
-		v(index++) = buckets[k][m];
+		v[index++] = buckets[k][m];
 	}
 }
 
