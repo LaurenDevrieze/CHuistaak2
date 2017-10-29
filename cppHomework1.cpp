@@ -3,19 +3,23 @@
 #include <random>
 #include <algorithm>
 #include <string>
-// misschien nog andere packages ontbreken
+#include <cstdlib>
+#include <time.h>
 
-// bucket sort
+// Bucket sort function
 void bucketSort(std::vector<float>& v, float range, int n){
+	//n = amount of buckets
 	std::vector<float> buckets[n];
+	//Put the elements of v in buckets according to hash function ind
 	for(int k=0; k< n; ++k){
 		int ind = std::floor(v[k]*((float)(n-1)/range));
 		buckets[ind].push_back(v[k]);
 	}
+	//Sort the elements in the buckets
 	for(int k=0; k <n ;++k){
 		sort(buckets[k].begin(),buckets[k].end());
-		//bucketSort(buckets[k], 'wat is range?')
 	}
+	//Put the elements of the buckets back in the vector
 	int index = 0;
 	for(int k=0; k <n ;++k){
 		for (int m = 0; m < buckets[k].size(); ++m)
@@ -26,26 +30,25 @@ void bucketSort(std::vector<float>& v, float range, int n){
 
 
 int main( int argc, char* argv[]){
-	/* 	argv[0] = size
-		argv[1] = range
-		argv[2] = number of experiments
-		argv[3] = number of discarded timings
-		argv[4] = number of buckets */
+	/* 	argv[1] = size
+		argv[2] = range
+		argv[3] = number of experiments
+		argv[4] = number of discarded timings
+		argv[5] = number of buckets */
 	
-	// String nog omzetten naar int
-	std::cout<<argv[1]<<std::endl;
-	int size = std::stoi(argv[1]);
-	float r = std::stof(argv[2]);
-	int numExp = std::stoi(argv[3]);
-	int disExp = std::stoi(argv[4]);
-	int m = std::stoi(argv[5]);
+	//Assign the input arguments to variables
+	int size = std::atoi(argv[1]);
+	float r = std::atof(argv[2]);
+	int numExp = std::atoi(argv[3]);
+	int disExp = std::atoi(argv[4]);
+	int m = std::atoi(argv[5]);
 
-//	
-/*for(int j = 1;j < size + 1 ; ++j){
+for(int j = 1;j < size + 1 ; ++j){
 	
-	//initialeer vector with size j
+	//Initialize vector with size j
 	std::vector<float> v(j,1);
 	
+	//Give the vector a random distribution with range r
 	std::random_device rd;
 	std::mt19937 generator(rd());
 	std::uniform_real_distribution<> distribution(0, r);
@@ -55,13 +58,15 @@ int main( int argc, char* argv[]){
 	
 	float meanExp1 = 0;
 	float meanExp2 = 0;
+	struct timespec l_start, l_end;
+	std::vector<float> timesample1, timeSample2
+	//
 	for(int i = 0; i < numExp+1; ++i){
 		
 		//shuffle v with the given random number generator
 		std::shuffle(v.begin(), v.end(), std::mt19937{std::random_device{}()});
 		
 		//Start timing
-		struct timespec l_start, l_end;
 		clock_gettime(CLOCK_MONOTONIC, &l_start);
 		
 		std::sort(v.begin(), v.end());
@@ -72,6 +77,7 @@ int main( int argc, char* argv[]){
 		
 		if(i > disExp){
 			meanExp1 = meanExp1 + elapsed_time1;
+			timeSample1[i] = elapsed_time1;
 		}
 		
 		//Start timing
@@ -85,15 +91,22 @@ int main( int argc, char* argv[]){
 		
 		if(i > disExp){
 			meanExp2 = meanExp2 + elapsed_time2;
+			timeSample2[i] = elapsed_time2;
 		}
 	}
+	//Calculate mean and standard deviation of all the experiments
 	meanExp1 = meanExp1/((float)(numExp-disExp));
 	meanExp2 = meanExp2/((float)(numExp-disExp));
+	for(int i = disExp + 1; i < numExp + 1 ; ++i){
+		stdev1 += pow(timeSample1[i] - meanExp1,2);
+		stdev2 += pow(timeSample2[i] - meanExp2,2);
+	}
+	stdev1 = sqrt((stdev1)/((float)(numExp-disExp)));
+	stdev2 = sqrt((stdev2)/((float)(numExp-disExp)));
 	
-	std::cout<<meanExp1<<" "<<meanExp2<<std::endl;
-	
-	
-}*/
+	std::cout<<j<<" "<<meanExp1<<" "<<stdev1<<std::endl;
+	std::cout<<j<<" "<<meanExp2<<" "<<stdev2<<std::endl;
+}
 	return 0;
 }
 
