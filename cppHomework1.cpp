@@ -21,10 +21,10 @@ void bucketSort(std::vector<double>& v, double range, int n){
 	}
 	//Put the elements of the buckets back in the vector
 	int index = 0;
-	for(int k=0; k < n ;++k){
+	/*for(int k=0; k < n ;++k){
 		for (int m = 0; m < buckets[k].size(); ++m)
 		v[index++] = buckets[k][m];
-	}
+	}*/
 
 }
 
@@ -85,7 +85,7 @@ for(int j = 1;j < size + 1 ; ++j){
 		//Start timing
 		clock_gettime(CLOCK_MONOTONIC, &l_start);
 		
-		//bucketSort(v,r,m);
+		bucketSort(v,r,m);
 	
 		//Stop timing
 		clock_gettime(CLOCK_MONOTONIC, &l_end);
@@ -97,7 +97,7 @@ for(int j = 1;j < size + 1 ; ++j){
 		}
 	}
 	//Calculate mean and standard deviation of all the experiments
-	/*double dif = numExp-disExp;
+	double dif = numExp-disExp;
 	meanExp1 = meanExp1/(dif);
 	meanExp2 = meanExp2/(dif);
 	for(int i = 0; i < numExp-disExp; ++i){
@@ -107,7 +107,7 @@ for(int j = 1;j < size + 1 ; ++j){
 	stdev1 = sqrt((stdev1)/(dif));
 	stdev2 = sqrt((stdev2)/(dif));
 	std::cout<<j<<" "<<meanExp1<<" "<<stdev1<<std::endl;
-	std::cout<<j<<" "<<meanExp2<<" "<<stdev2<<std::endl;*/
+	std::cout<<j<<" "<<meanExp2<<" "<<stdev2<<std::endl;
 }
 	return 0;
 }
