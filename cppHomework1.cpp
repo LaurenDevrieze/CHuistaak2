@@ -8,8 +8,8 @@
 void bucketSort(std::vector<float>& v, float range, int n){
 	std::vector<float> buckets[n];
 	for(int k=0; k< n; ++k){
-		int ind = std::floor(v(k)*((n-1)/range));
-		buckets[ind].push_back(v(k));
+		int ind = std::floor(v[k]*((float)(n-1)/range));
+		buckets[ind].push_back(v[k]);
 	}
 	for(int k=0; k <n ;++k){
 		sort(buckets[k].begin(),buckets[k].end());
@@ -17,24 +17,25 @@ void bucketSort(std::vector<float>& v, float range, int n){
 	}
 	int index = 0;
 	for(int k=0; k <n ;++k){
-		for (int m = 0; m < b[k].size(); ++m)
-		v(index++) = b[k](m);
+		for (int m = 0; m < buckets[k].size(); ++m)
+		v(index++) = buckets[k][m];
 	}
 }
 
 
-int main( int argc, float argv[]){
+int main( int argc, char* argv[]){
 	/* 	argv[0] = size
 		argv[1] = range
 		argv[2] = number of experiments
-		argv[3] = number of discarded timings */
+		argv[3] = number of discarded timings
+		argv[4] = number of buckets */
 	
 	// String nog omzetten naar int
-	int size = (int) argv[0];
-	float r = (float) argv[1];
-	int numExp = (int) argv[2];
-	int disExp = (int) argv[3];
-	int numBuckets = (int) argv[4];
+	int size = stoi(argv[0]);
+	float r = stof(argv[1]);
+	int numExp = stoi(argv[2]);
+	int disExp = stoi(argv[3]);
+	int m = stoi(argv[4]);
 
 //	
 for(int j = 1;j < size + 1 ; ++j){
