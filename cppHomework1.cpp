@@ -21,7 +21,7 @@ void bucketSort(std::vector<float>& v, float range, int n){
 		for (int m = 0; m < buckets[k].size(); ++m)
 		v[index++] = buckets[k][m];
 	}
-	delete[] buckets[n];
+
 }
 
 
@@ -41,7 +41,7 @@ int main( int argc, char* argv[]){
 	int m = std::stoi(argv[5]);
 
 //	
-for(int j = 1;j < size + 1 ; ++j){
+/*for(int j = 1;j < size + 1 ; ++j){
 	
 	//initialeer vector with size j
 	std::vector<float> v(j,1);
@@ -55,7 +55,7 @@ for(int j = 1;j < size + 1 ; ++j){
 	
 	float meanExp1 = 0;
 	float meanExp2 = 0;
-/*	for(int i = 0; i < numExp+1; ++i){
+	for(int i = 0; i < numExp+1; ++i){
 		
 		//shuffle v with the given random number generator
 		std::shuffle(v.begin(), v.end(), std::mt19937{std::random_device{}()});
