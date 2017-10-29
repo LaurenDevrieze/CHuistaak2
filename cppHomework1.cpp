@@ -25,7 +25,7 @@ void bucketSort(std::vector<double>& v, double range, int n){
 		
 		if(!buckets[k].empty()){
 			for(auto el: buckets[k]){
-				v[index++] = el;
+				v[++index] = el;
 			}
 		}
 		//for (int m = 0; m < buckets[k].size(); ++m)
