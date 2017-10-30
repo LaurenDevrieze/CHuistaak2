@@ -19,12 +19,12 @@ xlabel=n,ylabel=Time(s),
 legend pos=north west,
 legend style={font=\small}
 ]
-\addplot+[mark=none,very thick,solid,error bars/.cd,y dir=both,y explicit,error bar style={solid,very thin}] table[x index=0, y index =1,y error index=2] {sum.out}; % <======Adjust file name; x index = 0 means x can be found in column 0
-%\addplot+[mark=none,very thick,densely dotted,error bars/.cd,y dir=both,y explicit,x dir=both,x explicit,error bar style={solid,very thin}] table[x index=0, y index =1,y error index=2] {sum_O3.out};  % <======Adjust file name; x index = 0 means x can be found in column 0
+\addplot+[mark=none,very thick,solid,error bars/.cd,y dir=both,y explicit,error bar style={solid,very thin}] table[x index=0, y index =1,y error index=2] {sum_b.out}; % <======Adjust file name; x index = 0 means x can be found in column 0
+\addplot+[mark=none,very thick,densely dotted,error bars/.cd,y dir=both,y explicit,x dir=both,x explicit,error bar style={solid,very thin}] table[x index=0, y index =1,y error index=2] {sum_bO3.out};  % <======Adjust file name; x index = 0 means x can be found in column 0
 
-%\addplot+[mark=none,dashed,very thick,error bars/.cd,y dir=both,y explicit,x dir=both,x explicit,error bar style={solid,very thin}] table[x index=0, y index =1,y error index=2] {sum_O1.out};
-%\addplot+[mark=none,very thick,dashdotted,error bars/.cd,y dir=both,y explicit,x dir=both,x explicit,error bar style={solid,very thin}] table[x index=0, y index =1,y error index=2] {sum_Ofast.out};
-\legend{sum\_O0,sum\_O3};
+\addplot+[mark=none,dashed,very thick,error bars/.cd,y dir=both,y explicit,x dir=both,x explicit,error bar style={solid,very thin}] table[x index=0, y index =1,y error index=2] {sum_bO1.out};
+\addplot+[mark=none,very thick,dashdotted,error bars/.cd,y dir=both,y explicit,x dir=both,x explicit,error bar style={solid,very thin}] table[x index=0, y index =1,y error index=2] {sum_bOfast.out};
+\legend{sum,sum\_O3,sum\_O1,sum\_Ofast};
 \end{axis}
 
 \end{tikzpicture}
