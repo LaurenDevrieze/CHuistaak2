@@ -18,7 +18,7 @@
 		
 	In table \ref{tableTimings} the timings of all the methods combined with different preconditioners and the direct method are displayed. There are a few empty spots in the table when using matrix 2. For the preconditioners ILU(0) and ILU(1) all the methods can't be executed because the diagonal of the preconditioner multiplied with matrix 2 is zero.\\
 	After looking at the longer timings, it can be concluded that generally GMRES(10) is the fastest method followed by BiCGStab and GMRES(100) is the slowest. The smaller timings don't have a significant difference in them so it's difficult to conclude something from them. \\
-	The timings for the direct method aren't so clear. For matrix 3 it is faster, but for matrix 4 and 5, it is a lot slower.
+	The timings for the direct method aren't so clear. For matrix 3 it is faster, but for matrix 4 and 5, it is a lot slower. \\
 	
 	%timings
 	\begin{table}[h]
@@ -40,6 +40,8 @@
 		\caption{Table with the timings for different methods with preconditioners and the direct method, expressed in seconds.}
 		\label{tableTimings}
 	\end{table}
+	
+	The memoryFor the memory usage it is clear that it's more dependent on the type of preconditioner than the type of method that is used. 
 	
 	%Memory usage
 	\begin{table}[h]
