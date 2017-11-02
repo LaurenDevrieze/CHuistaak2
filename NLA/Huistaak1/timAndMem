@@ -1,0 +1,172 @@
+Iterative methods:
+
+BICGSTAB_ILUK 0
+
+mat01: 	0.040769 sec
+mat02: 	fatal error: zero diagonal
+mat03: 	62.3667 sec
+	3.13379 error
+	2.8% mem
+mat04: 	235.744 sec
+	0.679597 error
+	10.2% mem
+mat05:	0.34591 sec
+	4.47134e-09 error
+
+BICGSTAB_ILUK 1
+
+mat01:	2.53761 sec
+	3.29419e-08 error
+	0.3% mem
+mat02:	fatal error: zero diagonal
+mat03:	97.9519 sec
+	22.3925 err
+	3.7% mem
+mat04:	418.621 sec
+	0.910737 err
+	15.5% mem
+mat05:	0.954309
+	9.89574e-09 err
+
+BICGSTAB_ARMS
+
+mat01:	0.012949 sec
+	7.65087e-09 err	
+mat02:	0.198485 sec
+	36188.7 err
+mat03:	55.5782 sec
+	6.90019e+10 err
+	4% mem
+mat04:	307.62 sec
+	2.02717 err
+	14.4% mem
+mat05:	3.05756 sec
+	6.15697e-08 err
+	2% mem
+
+GMRES10_ILUK 0
+
+mat01:	0.04849 sec
+	9.66954e-06 err
+mat02:	error: zero diagonal
+mat03:	37.008 sec
+	89.2312 err
+	2.8% mem
+mat04:	129.211 sec
+	0.889511 err
+	10.5% mem
+mat05:	0.380574 sec
+	5.96342-09 err
+
+GMRES10_ILUK 1
+
+mat01:	2.3546 sec	
+mat02:	error zero diag
+mat03:	58.8101
+	3.8% mem
+mat04:	242.496 sec
+	15.8% mem
+mat05:	0.952507 sec
+
+GMRES10_ARMS
+
+mat01:	0.020596 sec	
+mat02:  0.151894 sec
+mat03:	32.328 sec
+	4% mem
+mat04:	192.646 sec
+	14.4% mem
+mat05:	3.1586 sec
+
+GMRES100_ILUK 0
+
+mat01:	0.112047 sec
+	5.63708e-06 err	
+mat02:	fatal error: zero diagonal
+mat03:	81.9552 sec
+	3.18241 err
+	3.9% mem
+mat04:  398.752 sec
+	0.030493 err
+	16.1% mem
+mat05:	0.341786
+	
+
+GMRES100_ILUK 1
+
+mat01:	2.43374 sec	
+mat02:	error zero diag
+mat03:	95.0938 sec
+	4.9% mem
+mat04:	464.788 sec
+	21.3%
+mat05:	0.974389 sec
+
+GMRES100_ARMS
+
+mat01:	0.014858	
+mat02:	0.111774
+mat03:	75.8737 sec
+	5.1% mem
+mat04:	400.809 sec
+	20.6% mem
+mat05:	3.30781 sec
+
+ARMS34
+
+mat02: 	bicgstab 0.229775
+	gmres10 0.2452 sec
+	gmres100 0.023013 sec
+
+ARMS12
+
+mat03:	bicgstab 48.2617
+	gmres10 28.3702
+	gmres100 139.877
+
+ARMS13
+
+mat04:  gmres10 170.48 sec
+	gmres100 368.297 sec
+	bicgstab 257.314 sec
+
+
+	
+Direct method:
+
+mat01: 	0.021279 secror
+
+mat02:	0.022208 sec
+	6.52626e-13 error
+
+mat03:	20.4651 sec
+	8.82651e-11 error
+	11.6% of mem max
+
+mat04:	5.36377 sec
+	ERROR met return waarde -13
+	9.3 mem max
+
+mat05:	15.2156 sec
+	1.12494e-15 error
+	5.3 mem max
+
+--ooc
+
+mat01: 	0.113117 sec
+	7.2946e-14 err
+mat02:	0.161896 sec
+	3.11267e-13 err
+mat03: 	23.5209 sec
+	8.98451e-11 err
+	2.9% mem
+mat04:	737.353 sec
+	8.56222e-13 err
+	61.5 mem max
+	889 Mb used for solve
+
+mat05:	13.2442 sec
+	2.1 mem
+
+top -p $(pidof ilu)
+	7.2946e-14 er

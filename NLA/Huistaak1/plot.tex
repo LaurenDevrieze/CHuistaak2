@@ -1,0 +1,45 @@
+\documentclass{standalone}
+\usepackage{pgfplots}
+\usepackage{pgfplotstable}
+\usepackage{tikz}
+\pgfplotsset{compat=1.13}
+\begin{document}
+
+\begin{tikzpicture}
+\begin{axis}[
+%title = Iteratieve methodes met preconditioner ARMS voor matrix 5 (k en ARMS\_levels zijn 1),
+height=8cm,
+width=12cm,
+%xmode = log,
+ymode = log,
+grid=both,
+grid style={line width=.1pt, draw=gray!20},
+major grid style={line width=.2pt,draw=gray!60},
+minor tick num=5,
+xlabel=Steps,ylabel=Error,
+legend pos=north east,
+legend style={font=\small}
+]
+\addplot+[mark=none,very thick,solid,red,error bars/.cd,y dir=both,y explicit,error bar style={solid,very thin}] table[x index=0, y index =1] {bicgstab_ARMS11_mat05.report}; % <======Adjust file name; x index = 0 means x can be found in column 0
+\addplot+[mark=none,very thick,dashed,red,error bars/.cd,y dir=both,y explicit,error bar style={solid,very thin}] table[x index=0, y index =1] {bicgstab_ILUK0_mat05.report};
+
+\addplot+[mark=none, thick,densely dotted,red,error bars/.cd,y dir=both,y explicit,x dir=both,x explicit,error bar style={solid,very thin}] table[x index=0, y index =1] {bicgstab_ILUK1_mat05.report}; 
+
+\addplot+[mark=none, thick,solid,blue,error bars/.cd,y dir=both,y explicit,x dir=both,x explicit,error bar style={solid,very thin}] table[x index=0, y index =1] {gmres10_ARMS11_mat05.report};  % <======Adjust file name; x index = 0 means x can be found in column 0
+
+\addplot+[mark=none,dashed,thick,blue,error bars/.cd,y dir=both,y explicit,x dir=both,x explicit,error bar style={solid,very thin}] table[x index=0, y index =1] {gmres10_ILUK0_mat05.report};
+
+\addplot+[mark=none, thick,densely dotted,blue,error bars/.cd,y dir=both,y explicit,x dir=both,x explicit,error bar style={solid,very thin}] table[x index=0, y index =1] {gmres10_ILUK1_mat05.report};
+
+\addplot+[mark=none,solid, thick,green,error bars/.cd,y dir=both,y explicit,x dir=both,x explicit,error bar style={solid,very thin}] table[x index=0, y index =1] {gmres100_ARMS11_mat05.report};
+ 
+\addplot+[mark=none, thick,dashed,green,error bars/.cd,y dir=both,y explicit,x dir=both,x explicit,error bar style={solid,very thin}] table[x index=0, y index =1] {gmres100_ILUK0_mat05.report};
+
+\addplot+[mark=none,thick,densely dotted,green,error bars/.cd,y dir=both,y explicit,x dir=both,x explicit,error bar style={solid,very thin}] table[x index=0, y index =1] {gmres100_ILUK1_mat05.report};
+
+\legend{ARMS,ILU(0),ILU(1)};
+%\legend{BiCGStab,GMRES(10),GMRES(100)};
+\end{axis}
+
+\end{tikzpicture}
+\end{document}   
