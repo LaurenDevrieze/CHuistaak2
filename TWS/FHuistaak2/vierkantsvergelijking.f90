@@ -56,9 +56,9 @@ subroutine printPrecisie()
 !	integer, parameter :: p1 = max(sp,selected_real_kind(6,37))
 !	integer, parameter :: p2 = max(dp,selected_real_kind(15,307))
 !	integer, parameter :: p3 = max(qp,selected_real_kind(33,4931))
-	integer, parameter :: p1 = selected_real_kind(6,37))
-	integer, parameter :: p2 = selected_real_kind(15,307))
-	integer, parameter :: p3 = selected_real_kind(33,4931))
+	integer, parameter :: p1 = selected_real_kind(6,37)
+	integer, parameter :: p2 = selected_real_kind(15,307)
+	integer, parameter :: p3 = selected_real_kind(33,4931)
 	real(kind=p1) :: getal1 = 1.0
 	real(kind=p2) :: getal2 = 1.0
 	real(kind=p3) :: getal3 = 1.0
