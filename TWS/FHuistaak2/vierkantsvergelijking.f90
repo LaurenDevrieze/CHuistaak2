@@ -41,10 +41,10 @@ subroutine printPrecisie()
 	real(p2) :: getal2 = 1.0
 	real(p3) :: getal3 = 1.0
 	print *, '                       single precision       double precision      quadruple precision ' 
-	print *, 'Lengte mantisse:   '  ,	digits(fraction(getal1)), '         ',digits(fraction(getal2)),'       ',digits(fraction(getal3))	
-	print *, 'Decimale precisie: '  , precision(getal1),'         ',precision(getal2),'       ',precision(getal3)
-	print *, 'Minimale exponent: ' , exponent(tiny(getal1)), '          ' , exponent(tiny(getal2)) , '       ' , exponent(tiny(getal3))
-	print *, 'Maximale exponent: ' , exponent(huge(getal1)), '          ' , exponent(huge(getal2)) , '       ' , exponent(huge(getal3))
+	print *,'Lengte mantisse:   ',digits(fraction(getal1)),'         ',digits(fraction(getal2)),'       ',digits(fraction(getal3))	
+	print *,'Decimale precisie: '  , precision(getal1),'         ',precision(getal2),'       ',precision(getal3)
+	print *,'Minimale exponent: ' , exponent(tiny(getal1)), '          ' , exponent(tiny(getal2)) , '       ' , exponent(tiny(getal3))
+	print *,'Maximale exponent: ' , exponent(huge(getal1)), '          ' , exponent(huge(getal2)) , '       ' , exponent(huge(getal3))
 	print '(a,es16.10,a5,es16.10,a5,es16.10)' , 'Machine precisie:       ' ,epsilon(getal1),' ',epsilon(getal2),' ',epsilon(getal3)
 	print *, 'Kind getal:        ' ,  kind(getal1), '         ' , kind(getal2) , '       ' , kind(getal3)
 end subroutine
