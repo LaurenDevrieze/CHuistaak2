@@ -36,7 +36,7 @@ implicit none
 !Variabelen declareren
 integer, parameter :: sp = 4
 integer, parameter :: dp = 8
-integer, parameter :: qp = 2
+integer, parameter :: qp = 16
 !real(dp) :: b, c
 !real(dp), dimension(2) :: x
 !real(sp) :: b_sp, c_sp
