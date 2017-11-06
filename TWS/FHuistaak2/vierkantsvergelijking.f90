@@ -26,7 +26,7 @@ implicit none
 !Variabelen declareren
 integer, parameter :: sp = 4
 integer, parameter :: dp = 8
-integer, parameter :: hp = 2
+integer, parameter :: qp = 2
 !real(dp) :: b, c
 !real(dp), dimension(2) :: x
 !real(sp) :: b_sp, c_sp
@@ -55,7 +55,7 @@ contains
 subroutine printPrecisie()
 	integer, parameter :: p1 = min(sp,selected_real_kind(6,37))
 	integer, parameter :: p2 = min(dp,selected_real_kind(15,307))
-	integer, parameter :: p3 = min(hp,selected_real_kind(3,5))
+	integer, parameter :: p3 = abs(min(qp,selected_real_kind(33,4931)))
 	real(kind=p1) :: getal1 = 1.0
 	real(kind=p2) :: getal2 = 1.0
 	real(kind=p3) :: getal3 = 1.0
