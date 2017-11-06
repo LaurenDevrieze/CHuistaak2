@@ -20,15 +20,21 @@ program vierkantsvergelijking
 !Machine precisie:       1.1920928955E-07     2.2204460493E-16     2.4651903288E-32
 ! Kind getal:                   1                     2                  3
 
+!BESPREKING PRECISIE WAARDEN
+
+
+
 !OUTPUT ALGORITMES (GFORTRAN)
 
 ! Resultaat algoritme 1 en 2 (dubbele precisie)
 !766.9778442383  0.0221557617
 !766.9778350831  0.0221649169
+!Verschil in absolute waarde van algoritme 1 en 2
 !  0.0000091552  0.0000091552
 ! Resultaat algoritme 1 en 2 (enkele precisie)
 !766.9778442383  0.0221557617
 !766.9778442383  0.0221649166
+!Verschil in absolute waarde van algoritme 1 en 2
 !  0.0000000000  0.0000091549
 
 implicit none
@@ -37,27 +43,29 @@ implicit none
 integer, parameter :: sp = 4
 integer, parameter :: dp = 8
 integer, parameter :: qp = 16
-!real(dp) :: b, c
-!real(dp), dimension(2) :: x
-!real(sp) :: b_sp, c_sp
-!real(sp), dimension(2) :: x_sp
+real(dp) :: b, c
+real(dp), dimension(2) :: x
+real(sp) :: b_sp, c_sp
+real(sp), dimension(2) :: x_sp
 
-!read(*,*) b, c
+read(*,*) b, c
 
 call printPrecisie
 
-!print *, 'Resultaat algoritme 1 en 2 (dubbele precisie)'
-!print '(f14.10,f14.10)', algoritme1dp(b,c)
-!print '(f14.10,f14.10)', algoritme2dp(b,c)
-!print '(f14.10,f14.10)', abs(algoritme1dp(b,c) - algoritme2dp(b,c))
+print *, 'Resultaat algoritme 1 en 2 (dubbele precisie)'
+print '(f14.10,f14.10)', algoritme1dp(b,c)
+print '(f14.10,f14.10)', algoritme2dp(b,c)
+print *, 'Verschil in absolute waarde van algoritme 1 en 2'
+print '(f14.10,f14.10)', abs(algoritme1dp(b,c) - algoritme2dp(b,c))
 
-!b_sp = b
-!c_sp = c
+b_sp = b
+c_sp = c
 
-!print *, 'Resultaat algoritme 1 en 2 (enkele precisie)'
-!print '(f14.10,f14.10)', algoritme1(b_sp,c_sp)
-!print '(f14.10,f14.10)', algoritme2(b_sp,c_sp)
-!print '(f14.10,f14.10)', abs(algoritme1(b_sp,c_sp) - algoritme2(b_sp,c_sp))
+print *, 'Resultaat algoritme 1 en 2 (enkele precisie)'
+print '(f14.10,f14.10)', algoritme1(b_sp,c_sp)
+print '(f14.10,f14.10)', algoritme2(b_sp,c_sp)
+print *, 'Verschil in absolute waarde van algoritme 1 en 2'
+print '(f14.10,f14.10)', abs(algoritme1(b_sp,c_sp) - algoritme2(b_sp,c_sp))
 
 contains
 
@@ -78,40 +86,39 @@ subroutine printPrecisie()
 	print *, 'Kind getal:        ' ,  kind(getal1), '         ' , kind(getal2) , '       ' , kind(getal3)
 end subroutine
 		
+function algoritme1dp(b,c) result(x)
+	real(dp), intent(in) :: b, c
+	real(dp), dimension(2) :: x(2)
+	real :: d
+	d = sqrt((b/2)*(b/2)-c)
+	x = [-(b/2) + d, -(b/2) - d]  
+end function
 
-!function algoritme1dp(b,c) result(x)
-!	real(dp), intent(in) :: b, c
-!	real(dp), dimension(2) :: x(2)
-!	real :: d
-!	d = sqrt((b/2)*(b/2)-c)
-!	x = [-(b/2) + d, -(b/2) - d]  
-!end function
-!
-!function algoritme2dp(b,c) result(x)
-!	real(dp), intent(in) :: b, c
-!	real(dp), dimension(2) :: x(2)
-!	real(dp) :: d
-!	d = sqrt((b/2)*(b/2)-c)
-!	x(1) = sign(1.0_dp,-b)*(abs(b/2) + d)
-!	x(2) = c/x(1)
-!end function
+function algoritme2dp(b,c) result(x)
+	real(dp), intent(in) :: b, c
+	real(dp), dimension(2) :: x(2)
+	real(dp) :: d
+	d = sqrt((b/2)*(b/2)-c)
+	x(1) = sign(1.0_dp,-b)*(abs(b/2) + d)
+	x(2) = c/x(1)
+end function
 
-!function algoritme1(b,c) result(x)
-!	real, intent(in) :: b, c
-!	real, dimension(2) :: x(2)
-!	real :: d
-!	d = sqrt((b/2)*(b/2)-c)
-!	x = [-(b/2) + d, -(b/2) - d]  
-!end function
+function algoritme1(b,c) result(x)
+	real, intent(in) :: b, c
+	real, dimension(2) :: x(2)
+	real :: d
+	d = sqrt((b/2)*(b/2)-c)
+	x = [-(b/2) + d, -(b/2) - d]  
+end function
 
-!function algoritme2(b,c) result(x)
-!	real, intent(in) :: b, c
-!	real, dimension(2) :: x(2)
-!	real :: d
-!	d = sqrt((b/2)*(b/2)-c)
-!	x(1) = sign(1.0,-b)*(abs(b/2) + d)
-!	x(2) = c/x(1)
-!end function
+function algoritme2(b,c) result(x)
+	real, intent(in) :: b, c
+	real, dimension(2) :: x(2)
+	real :: d
+	d = sqrt((b/2)*(b/2)-c)
+	x(1) = sign(1.0,-b)*(abs(b/2) + d)
+	x(2) = c/x(1)
+end function
 
 end program
 	
