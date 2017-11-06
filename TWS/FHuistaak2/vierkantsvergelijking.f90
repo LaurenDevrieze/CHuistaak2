@@ -10,6 +10,16 @@ program vierkantsvergelijking
 !Machine precisie:       1.1920928955E-07     2.2204460493E-16     1.9259299444E-34
 ! Kind getal:                   4                     8                  16
 
+!OUTPUT NAGFOR
+
+!                        single precision       double precision      quadruple precision
+! Lengte mantisse:             24                    53                 106
+! Decimale precisie:            6                    15                  31
+! Minimale exponent:         -125                  -1021              -968
+! Maximale exponent:          128                   1024               1023
+!Machine precisie:       1.1920928955E-07     2.2204460493E-16     2.4651903288E-32
+! Kind getal:                   1                     2                  3
+
 !OUTPUT ALGORITMES (GFORTRAN)
 
 ! Resultaat algoritme 1 en 2 (dubbele precisie)
@@ -56,9 +66,9 @@ subroutine printPrecisie()
 	integer, parameter :: p1 = min(sp,selected_real_kind(6,37))
 	integer, parameter :: p2 = min(dp,selected_real_kind(15,307))
 	integer, parameter :: p3 = abs(min(qp,selected_real_kind(33,4931)))
-	real(kind=p1) :: getal1 = 1.0
-	real(kind=p2) :: getal2 = 1.0
-	real(kind=p3) :: getal3 = 1.0
+	real(p1) :: getal1 = 1.0
+	real(P2) :: getal2 = 1.0
+	real(p3) :: getal3 = 1.0
 	print *, '                       single precision       double precision      quadruple precision ' 
 	print *,'Lengte mantisse:   ',digits(fraction(getal1)),'         ',digits(fraction(getal2)),'       ',digits(fraction(getal3))	
 	print *,'Decimale precisie: '  , precision(getal1),'         ',precision(getal2),'       ',precision(getal3)
