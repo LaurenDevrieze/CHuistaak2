@@ -1,4 +1,5 @@
 program vierkantsvergelijking
+!Lauren Devrieze
 
 !OUTPUT GFORTRAN EN IFORT
 
@@ -29,13 +30,19 @@ program vierkantsvergelijking
 ! Resultaat algoritme 1 en 2 (dubbele precisie)
 !766.9778442383  0.0221557617
 !766.9778350831  0.0221649169
-!Verschil in absolute waarde van algoritme 1 en 2
-!  0.0000091552  0.0000091552
 ! Resultaat algoritme 1 en 2 (enkele precisie)
 !766.9778442383  0.0221557617
 !766.9778442383  0.0221649166
-!Verschil in absolute waarde van algoritme 1 en 2
-!  0.0000000000  0.0000091549
+
+
+!BESPREKING ALGORITMES
+
+	!Als we naar de output kijken zien we eerst en vooral dat vooral bij kleine waarden voor nulpunten
+	! er een verschil is tussen de 2 algoritmes
+	!Om duidelijk weer te geven welk algoritme het best is nemen we de volgende waarden: b = 999.99999 en c = 0.01
+	!Deze veelterm heeft 1000 en 0.0001 als nulpunt
+	
+
 
 implicit none
 
@@ -53,19 +60,17 @@ read(*,*) b, c
 call printPrecisie
 
 print *, 'Resultaat algoritme 1 en 2 (dubbele precisie)'
-print '(f14.10,f14.10)', algoritme1dp(b,c)
-print '(f14.10,f14.10)', algoritme2dp(b,c)
-print *, 'Verschil in absolute waarde van algoritme 1 en 2'
-print '(f14.10,f14.10)', abs(algoritme1dp(b,c) - algoritme2dp(b,c))
+print '(f15.10,f15.10)', algoritme1dp(b,c)
+print '(f15.10,f15.10)', algoritme2dp(b,c)
+
 
 b_sp = b
 c_sp = c
 
 print *, 'Resultaat algoritme 1 en 2 (enkele precisie)'
-print '(f14.10,f14.10)', algoritme1(b_sp,c_sp)
-print '(f14.10,f14.10)', algoritme2(b_sp,c_sp)
-print *, 'Verschil in absolute waarde van algoritme 1 en 2'
-print '(f14.10,f14.10)', abs(algoritme1(b_sp,c_sp) - algoritme2(b_sp,c_sp))
+print '(f15.10,f15.10)', algoritme1(b_sp,c_sp)
+print '(f15.10,f15.10)', algoritme2(b_sp,c_sp)
+
 
 contains
 
