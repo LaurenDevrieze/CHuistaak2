@@ -11,9 +11,11 @@ program prime
 
 !	(0) Geen optimalisaties, maar wel enkele aanpassingen zodat programma met tijd werkt
 !	en niet met hoeveel priemgetallen er gevraagd zijn.
-!	pn = 3665144	n = 15
+!	pn = 139562831	n = 8554
 
-!	(1) real array useless wordt niet gebruikt dus deze moet niet opgesteld worden.
+!	(1) real array useless wordt niet gebruikt dus deze moet niet opgesteld worden,
+!	 analoog voor nbChecks
+!	pn = 
 
 
 implicit none
@@ -22,7 +24,7 @@ real					:: start_time, stop_time
 integer					:: n, i, j, k, nbChecks
 integer, dimension(:,:),allocatable :: primeList	!no allocatable? 
 logical					:: isPrime
-real					:: useless(900)
+!real					:: useless(900)	(1)
 
 call cpu_time(start_time)
 
@@ -43,10 +45,10 @@ k = 1
   do
 	primeList(1,i) = primeList(1,i-1)
     primeList(1,i) = primeList(1,i) + k
-    useless(mod(i,900)) = cos(i+0.5)
+    !useless(mod(i,900)) = cos(i+0.5)	(1)
     isPrime = .true.
     do j = 1,i-1
-      nbChecks = nbChecks + 1
+      !nbChecks = nbChecks + 1	(1)
       primeList(3,j) = min(i,j)
       if (modulo(primeList(1,i), primeList(1,j)) == 0) then
         isPrime = .false.
