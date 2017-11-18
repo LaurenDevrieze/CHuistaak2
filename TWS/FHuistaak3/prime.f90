@@ -19,7 +19,7 @@ program prime
 implicit none
 
 real					:: start_time, stop_time
-integer					:: n, i, j, nbChecks
+integer					:: n, i, j, k, nbChecks
 integer, dimension(:,:),allocatable :: primeList	!no allocatable? 
 logical					:: isPrime
 real					:: useless(900)
@@ -35,12 +35,14 @@ allocate(primeList(3,100000))
 primeList(1,1) = 2
 write(unit=*, fmt="(A, I0, A, I0)") "Prime ", 1, ": ", primeList(1,1)
 
-i = 1
-!do i = 2,n (0)
-do
-  primeList(1,i) = primeList(1,i-1)
+primeList(1,2)= 3
+
+i = 3
+k = 1
+!do i = 2,n (0) 
   do
-    primeList(1,i) = primeList(1,i) + 1
+	primeList(1,i) = primeList(1,i-1)
+    primeList(1,i) = primeList(1,i) + k
     useless(mod(i,900)) = cos(i+0.5)
     isPrime = .true.
     do j = 1,i-1
@@ -56,14 +58,16 @@ do
 		print *, stop_time-start_time
 		print *, "Biggest prime: " , primeList(1,i-1)
 		print *, "Number of primes: ", i-1
-		call exit()
+		exit
 	  end if
       write(unit=*, fmt="(A, I0, A, I0)") "Prime ", i, ": ", primeList(1,i)
 	  i = i + 1
-      exit
-    end if
+      !exit
+	else
+		k = k + 1
+	end if
   end do
-end do
+!end do
 
 write(unit=*, fmt="(A, I0, A, I0, A, L, A)")  "! Prime ", i, " is ", primeList(1,i), ", check = ", .false., ", adjusted: " 
 
@@ -90,9 +94,4 @@ deallocate(primeList)
 !  i++
   
 		
-
-
-
-
-
 end program prime
