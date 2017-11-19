@@ -61,7 +61,7 @@ primeloop: do
 	primeList(i) = primeList(i-1) + k
     !useless(mod(i,900)) = cos(i+0.5)	(1)
     !isPrime = .true. (4)
-    do j = 1,i-1
+    do j = 1,(i/2)
       !nbChecks = nbChecks + 1	(1)
       !primeList(3,j) = min(i,j)	(2)
       if (modulo(primeList(i), primeList(j)) == 0) then
