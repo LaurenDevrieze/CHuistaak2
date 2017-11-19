@@ -18,24 +18,25 @@ program prime
 !	pn = 139662251	n = 8557
 
 !	(2) prime list hoeft maar 1 dimensie
+!	    pn =  n = 9804
 
 !	(3) Hoeft enkel maar een print statement op het einde van het programma
+!		pn = 183654707 n = 9798
 
 !	(4) variabele isPrime verwijderen
+!		pn = 243709 n = 21527
 
 !	(5) stappen van 2 nemen aangzien even getallen geen priem kunnen zijn.
 !		pn = 263083 n = 23073
 
-!	(6)	Met index i en k werken ipv steeds elementen uit primelist te halen
-!		pn = 372901 n = 31743
-
+!	(6) Introductie van een Jmax aangezien er niet van tot i-1 gelopen moeten worden
 
 
 
 implicit none
 
 real					:: start_time, stop_time
-integer					:: i, j, k, primeMax !n , nbChecks	(1)
+integer					:: i, j, k, primeMax, Jmax !n , nbChecks	(1)
 !integer, dimension(:,:),allocatable :: primeList	(2)
 integer, dimension(:),allocatable :: primeList	
 !logical					:: isPrime
@@ -64,18 +65,24 @@ primeloop: do i = 3, primeMax , 2	!(5)
     !primeList(i) = primeList(i) + k	(6)
     !useless(mod(i,900)) = cos(i+0.5)	(1)
     !isPrime = .true. (4)
-    do j = 2,i-1 !(6)
+	primeList(k) = i
+	Jmax = Ceiling(sqrt(real(primeList(k)))) 
+	!print *, Jmax
+    do j = 2,k-1!(6)
       !nbChecks = nbChecks + 1	(1)
       !primeList(3,j) = min(i,j)	(2)
       !if (modulo(primeList(i), primeList(j)) == 0) then (6)
-	  if(mod(i,j)==0) then
+	  if(primeList(Jmax) >= primeList(j)) cycle primeloop
+	  if(modulo(primeList(k),primeList(j))==0) then
+		!print *, i
 		cycle primeloop
         !isPrime = .false. (4)
       end if
+	  
 	 !if (ceiling(sqrt(real(primeList(i)))) + 1 > primeList(j)) exit
     end do
 	primeList(k) = i
-	if(i == 10000 .and. i /= 104729) then 
+	if(k == 10000 .and. i /= 104729) then 
 		print *, "Fout"
 		call exit(1)
 	end if
@@ -89,12 +96,10 @@ primeloop: do i = 3, primeMax , 2	!(5)
 	  !print *, primeList(1)
       !write(unit=*, fmt="(A, I0, A, I0)") "Prime ", i, ": ", primeList(i)	(3)
 	  k = k + 1
-      !exit	(0)
-		
+      !exit	(0)	
 	!end if (4)
   end do primeloop
 !end do	(0)
-
 !write(unit=*, fmt="(A, I0, A, I0, A, L, A)")  "! Prime ", i, " is ", primeList(i), ", check = ", .false., ", adjusted: " 
 
 deallocate(primeList)

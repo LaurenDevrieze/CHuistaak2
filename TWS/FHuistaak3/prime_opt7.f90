@@ -18,18 +18,18 @@ program prime
 !	pn = 139662251	n = 8557
 
 !	(2) prime list hoeft maar 1 dimensie
+!	    pn =  n = 9804
 
 !	(3) Hoeft enkel maar een print statement op het einde van het programma
+!		pn = 183654707 n = 9798
 
 !	(4) variabele isPrime verwijderen
+!		pn = 243709 n = 21527
 
 !	(5) stappen van 2 nemen aangzien even getallen geen priem kunnen zijn.
 !		pn = 263083 n = 23073
 
-!	(6)	Met index i en k werken ipv steeds elementen uit primelist te halen
-!		pn = 372901 n = 31743
-
-!	(7) Introductie van een Jmax aangezien er niet van tot i-1 gelopen moeten worden
+!	(6) Introductie van een Jmax aangezien er niet van tot i-1 gelopen moeten worden
 
 
 
@@ -65,15 +65,18 @@ primeloop: do i = 3, primeMax , 2	!(5)
     !primeList(i) = primeList(i) + k	(6)
     !useless(mod(i,900)) = cos(i+0.5)	(1)
     !isPrime = .true. (4)
-	Jmax = Ceiling(sqrt(real(primeList(k-1)))
-    do j = 2,Jmax!(6)
+	primeList(k) = i
+	Jmax = Ceiling(sqrt(real(primeList(k))))
+    do j = 2,i-1!(6)
       !nbChecks = nbChecks + 1	(1)
       !primeList(3,j) = min(i,j)	(2)
       !if (modulo(primeList(i), primeList(j)) == 0) then (6)
+	  if(primeList(Jmax) >= j) cycle primeloop
 	  if(mod(primeList(k),primeList(j)==0) then
 		cycle primeloop
         !isPrime = .false. (4)
       end if
+	  
 	 !if (ceiling(sqrt(real(primeList(i)))) + 1 > primeList(j)) exit
     end do
 	primeList(k) = i
