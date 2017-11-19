@@ -61,6 +61,10 @@ k = 1
       end if
     end do
     if (isPrime) then
+	  if(i == 10000 .and. primeList(i) /= 104729) then 
+		print *, "Fout"
+		call exit(1)
+	end if
 	  call cpu_time(stop_time)
 	  if(stop_time-start_time > 1) then
 		print *, "Biggest prime: " , primeList(i-1)

@@ -24,6 +24,10 @@ program prime
 !	(4) variabele isPrime verwijderen
 
 !	(5) stappen van 2 nemen aangzien even getallen geen priem kunnen zijn.
+!		pn = 263083 n = 23073
+
+!	(6)	Met index i en k werken ipv steeds elementen uit primelist te halen
+!		pn = 372901 n = 31743
 
 
 
@@ -31,7 +35,7 @@ program prime
 implicit none
 
 real					:: start_time, stop_time
-integer					:: i, j, k !n , nbChecks	(1)
+integer					:: i, j, k, primeMax !n , nbChecks	(1)
 !integer, dimension(:,:),allocatable :: primeList	(2)
 integer, dimension(:),allocatable :: primeList	
 !logical					:: isPrime
@@ -44,46 +48,47 @@ call cpu_time(start_time)
 
 !nbChecks = 0	(1)
 !allocate(primeList(3,100000))	(2)
-allocate(primeList(100000))
+allocate(primeList(400000))
 
 primeList(1) = 2
-primeList(2) = 3
 !write(unit=*, fmt="(A, I0, A, I0)") "Prime ", 1, ": ", primeList(1) (3)
 
-i = 3
+primeMax = 400000000
+
 k = 2
 !do i = 2,n (0)
 
  
-primeloop: do
-	!primeList(i) = primeList(i-1)
-    !primeList(i) = primeList(i) + k
-	primeList(i) = primeList(i-1) + k
+primeloop: do i = 3, primeMax , 2	!(5)
+	!primeList(i) = primeList(i-1)	(6)
+    !primeList(i) = primeList(i) + k	(6)
     !useless(mod(i,900)) = cos(i+0.5)	(1)
     !isPrime = .true. (4)
-    do j = 1,(i/2)
+    do j = 2,i-1 !(6)
       !nbChecks = nbChecks + 1	(1)
       !primeList(3,j) = min(i,j)	(2)
-      if (modulo(primeList(i), primeList(j)) == 0) then
-		k = k + 2
+      !if (modulo(primeList(i), primeList(j)) == 0) then (6)
+	  if(mod(i,j)==0) then
 		cycle primeloop
         !isPrime = .false. (4)
       end if
+	 !if (ceiling(sqrt(real(primeList(i)))) + 1 > primeList(j)) exit
     end do
-	if(i == 10000 .and. primeList(i) /= 104729) then 
+	primeList(k) = i
+	if(i == 10000 .and. i /= 104729) then 
 		print *, "Fout"
 		call exit(1)
 	end if
     !if (isPrime) then (4)
 	  call cpu_time(stop_time)
 	  if(stop_time-start_time > 1) then
-		print *, "Biggest prime: " , primeList(i-1)
-		print *, "Number of primes: ", i-1
+		print *, "Biggest prime: " , primeList(k-1)
+		print *, "Number of primes: ", k-1
 		exit
 	  end if
+	  !print *, primeList(1)
       !write(unit=*, fmt="(A, I0, A, I0)") "Prime ", i, ": ", primeList(i)	(3)
-	  i = i + 1
-	  k = 2
+	  k = k + 1
       !exit	(0)
 		
 	!end if (4)
