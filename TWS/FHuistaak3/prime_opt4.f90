@@ -21,16 +21,18 @@ program prime
 
 !	(3) Hoeft enkel maar een print statement op het einde van het programma
 
+!	(4) variabele isPrime verwijderen
+
 
 
 
 implicit none
 
 real					:: start_time, stop_time
-integer					:: n, i, j, k !nbChecks	(1)
+integer					:: i, j, k !n , nbChecks	(1)
 !integer, dimension(:,:),allocatable :: primeList	(2)
 integer, dimension(:),allocatable :: primeList	
-logical					:: isPrime
+!logical					:: isPrime
 !real					:: useless(900)	(1)
 
 call cpu_time(start_time)
@@ -48,19 +50,21 @@ primeList(1) = 2
 i = 2
 k = 1
 !do i = 2,n (0) 
-  do
+primeloop: do
 	primeList(i) = primeList(i-1)
     primeList(i) = primeList(i) + k
     !useless(mod(i,900)) = cos(i+0.5)	(1)
-    isPrime = .true.
+    !isPrime = .true. (4)
     do j = 1,i-1
       !nbChecks = nbChecks + 1	(1)
       !primeList(3,j) = min(i,j)	(2)
       if (modulo(primeList(i), primeList(j)) == 0) then
-        isPrime = .false.
+		k = k + 1
+		cycle primeloop
+        !isPrime = .false. (4)
       end if
     end do
-    if (isPrime) then
+    !if (isPrime) then (4)
 	  call cpu_time(stop_time)
 	  if(stop_time-start_time > 1) then
 		print *, "Biggest prime: " , primeList(i-1)
@@ -70,10 +74,9 @@ k = 1
       !write(unit=*, fmt="(A, I0, A, I0)") "Prime ", i, ": ", primeList(i)	(3)
 	  i = i + 1
       !exit	(0)
-	else
-		k = k + 1
-	end if
-  end do
+		
+	!end if (4)
+  end do primeloop
 !end do	(0)
 
 !write(unit=*, fmt="(A, I0, A, I0, A, L, A)")  "! Prime ", i, " is ", primeList(i), ", check = ", .false., ", adjusted: " 
@@ -101,4 +104,4 @@ deallocate(primeList)
 !  i++
   
 		
-end program prime
+end program
