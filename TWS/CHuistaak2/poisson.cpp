@@ -1,5 +1,6 @@
 #include "vector.hpp"
 #include "cg.hpp"
+#include "element_apply.hpp"
 #include <iostream>
 #include <typeinfo>
 #include <type_traits>
@@ -13,7 +14,6 @@ Commands : g++ -Wall -std=c++14 -o poisson poisson.cpp
 */
 
 template <typename T>
-//!!!!!! deel huistaak !!!!!!!!
 void poissonFun( T const& x, T& y){
 	assert( x.size()==y.size() ) ;
   double h = 1/(x.size() + 1);
@@ -25,40 +25,32 @@ void poissonFun( T const& x, T& y){
 }
 
 template <typename T>
-void exactFun(T& s){
-	for(int i=0; i < s.size(); i++){
-	    double x = (i+1)/(s.size()+1);
-		s[i] = (x - x*x)*exp(-x);
-	}
+void expfun(T& v){
+	v = exp(v*v/2)
 }
-
-template <typename T>
-void discreteF(T& f){
-	for(int i=0; i < f.size(); i++){
-	    double x = (i+1)/(f.size()+1);
-		f[i] = (x*x - 5*x + 4)*exp(-x);
-	}
-}
-
 
 int main() {
   int n=100;
   tws::vector<double> f(n) ;
   tws::vector<double> f_ex(n) ;
   tws::vector<double> s(n) ;
-  tws::vector<double> x(n) ;
+  tws::vector<double> u(n) ;
   tws::vector<double> sol(n) ;
+  tws::vector<double> v(n) ;
 
+  //Initialize values
   for (int i=0; i<x.size(); ++i) {
-    x[i] = 1 ;
+	double x = (i+1)/(s.size()+1);
+	s[i] = (x - x*x)*exp(-x);
+	f[i] = (x*x - 5*x + 4)*exp(-x);
   }
-  x.randomize();
-
-  exactFun<tws::vector<double>>(s);
-  discreteF<tws::vector<double>>(f);
+  u.randomize();
   
-	//tws::cg(poissonFun<tws::vector<double>>, x, f, 1.e-10,n);
-	//poissonFun<tws::vector<double>>(x,sol);
+  v.randomize();
+  tws::element_apply(v);
+  
+  tws::cg(poissonFun<tws::vector<double>>, u, f, 1.e-10,n);
+  poissonFun<tws::vector<double>>(u,sol);
 
   //std::cout<<"relative error: "<<tws::norm_2(sol-b_ex)/tws::norm_2(b_ex)<<std::endl;
   //std::cout<<"f_ex"<<x<<std::endl;
