@@ -39,7 +39,7 @@ int main() {
   tws::vector<double> v(n) ;
 
   //Initialize values
-  for (int i=0; i<x.size(); ++i) {
+  for (int i=0; i<u.size(); ++i) {
 	double x = (i+1)/(s.size()+1);
 	s[i] = (x - x*x)*exp(-x);
 	f[i] = (x*x - 5*x + 4)*exp(-x);
@@ -55,7 +55,7 @@ int main() {
   //std::cout<<"relative error: "<<tws::norm_2(sol-b_ex)/tws::norm_2(b_ex)<<std::endl;
   //std::cout<<"f_ex"<<x<<std::endl;
   std::cout<<"f"<<f<<std::endl;
-  std::cout<<"x"<<x<<std::endl;
+  std::cout<<"u"<<u<<std::endl;
   std::cout<<"s"<<s<<std::endl;
   //std::cout<<"sol"<<sol<<std::endl;
 
