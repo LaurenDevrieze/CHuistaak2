@@ -5,8 +5,7 @@
 #include <typeinfo>
 #include <type_traits>
 #include <limits>
-#include <iomanip>
-#include <algorithm>  
+#include <iomanip>  
 
 /* Lauren Devrieze
 
@@ -19,7 +18,8 @@ Commands : g++ -Wall -std=c++14 -o poisson poisson.cpp
 template <typename T>
 void matvec( T const& x, T& y){
   assert( x.size()==y.size() ) ;
-  double h = 1.0/(x.size() + 1.0);
+  typedef typename T::value_type value_type ;
+  value_type h = 1.0/(x.size() + 1.0);
   std::cout<<"h :"<<h<<std::endl;
   for (int i=1; i<x.size()-1; ++i) {
     y[i] = (1/(h*h))*(-x[i-1] + 2*x[i] - x[i+1]) ;
@@ -28,8 +28,8 @@ void matvec( T const& x, T& y){
 	y[x.size()-1] = (1/(h*h))*(-x[x.size()-2] + 2*x[x.size()-1]);
 }
 
-template <typename T>
-void expfun(T& v){
+template <typename K>
+void expfun(K& v){
 	v = exp(v*v/2);
 }
 
@@ -38,7 +38,7 @@ int main() {
   typedef double type;
   tws::vector<type> f(n) ;
   tws::vector<type> f_ex(n) ;
-  tws::vector<type> s(n) ;
+  tws::vector<long double> s(n) ;
   tws::vector<type> u(n) ;
   tws::vector<type> v(n) ;
   tws::vector<type> y(n) ;
@@ -54,7 +54,7 @@ int main() {
   u.randomize();
   
   v.randomize();
-  tws::element_apply(expfun,v);
+  tws::element_apply(expfun<type>,v);
   
   //matvec(u,y)
   
@@ -62,8 +62,12 @@ int main() {
   //matvec<tws::vector<double>>(u,sol);
   
   //Calculate max_norm_err
+  max_norm_err = 0;
   for (int i = 0; i<u.size(); ++i){
 	err[i] = std::abs(s[i]-u[i]); 
+	if(err[i] > max_norm_err){
+		max_norm_err = err[i]
+	}
   }
   max_norm_err = std::max(err)
   
