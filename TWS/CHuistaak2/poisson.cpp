@@ -47,9 +47,10 @@ int main() {
 
   //Initialize values
   for (int i=0; i<u.size(); ++i) {
-	type x = (i+1)/(s.size()+1);
+	type x = (i+1.0)/(s.size()+1.0);
 	std::cout<<"s:"<<s[i]<<std::endl;
 	s[i] = (x - x*x)*exp(-x);
+	std::cout<<"f:"<<f[i]<<std::endl;
 	f[i] = (x*x - 5*x + 4)*exp(-x);
   }
   u.randomize();
