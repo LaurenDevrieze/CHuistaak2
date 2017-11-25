@@ -16,7 +16,7 @@ Commands : g++ -Wall -std=c++14 -o poisson poisson.cpp
 template <typename T>
 void matvec( T const& x, T& y){
   assert( x.size()==y.size() ) ;
-  double h = 1.0/(real(x.size()) + 1.0);
+  double h = 1.0/(x.size() + 1.0);
   std::cout<<"h :"<<h<<std::endl;
   for (int i=1; i<x.size()-1; ++i) {
     y[i] = (1/(h*h))*(-x[i-1] + 2*x[i] - x[i+1]) ;
@@ -27,7 +27,7 @@ void matvec( T const& x, T& y){
 
 template <typename T>
 void expfun(T& v){
-	v = exp(v*v/2)
+	v = exp(v*v/2);
 }
 
 int main() {
@@ -39,6 +39,7 @@ int main() {
   tws::vector<type> u(n) ;
   tws::vector<type> v(n) ;
   tws::vector<type> y(n) ;
+  tws::vector<type> max_norm_err(n) ;
 
   //Initialize values
   for (int i=0; i<u.size(); ++i) {
@@ -49,18 +50,24 @@ int main() {
   u.randomize();
   
   v.randomize();
-  tws::element_apply(v);
+  tws::element_apply(expfun,v);
   
   //matvec(u,y)
   
   tws::cg(matvec<tws::vector<double>>, u, f, 1.e-10,n);
-  matvec<tws::vector<double>>(u,sol);
+  //matvec<tws::vector<double>>(u,sol);
   
+  //Calculate max_norm_err
   for (int i = 0; i<u.size(); ++i){
-	  
+	max_norm_err[i] = std::max(std::abs(s[i]-u[i])); 
   }
   
-  std::cout<<tws::norm_2(sol-b_ex)/tws::norm_2(b_ex)<<std::endl;
+  std::cout
+  << std::setprecision(std::numeric_limits<long double>::digits10+1)
+  << std::scientific;
+  std::cout<< N << " " << max_norm_err<< "\t"<< std::endl;
+  
+  //std::cout<<tws::norm_2(sol-b_ex)/tws::norm_2(b_ex)<<std::endl;
   //std::cout<<"f_ex"<<x<<std::endl;
   std::cout<<"f"<<f<<std::endl;
   std::cout<<"u"<<u<<std::endl;
