@@ -47,7 +47,7 @@ int main( int argc, char* argv[]) {
 
   //Initialize values
   for (int i=0; i<u.size(); ++i) {
-	type x = ((type)i+1.0)/((type).size()+1.0);
+	type x = ((type)i+1.0)/((type)u.size()+1.0);
 	std::cout<<"s:"<<s[i]<<std::endl;
 	s[i] = (x - x*x)*exp(-x);
 	std::cout<<"x:"<<x<<std::endl;
