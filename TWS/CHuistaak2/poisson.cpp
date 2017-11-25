@@ -34,7 +34,7 @@ void expfun(K& v){
 
 int main( int argc, char* argv[]) {
   int n = std::atoi(argv[1]);
-  typedef double type;
+  typedef float type;
   tws::vector<type> f(n) ;
   tws::vector<type> f_ex(n) ;
   tws::vector<long double> s(n) ;
@@ -52,11 +52,11 @@ int main( int argc, char* argv[]) {
   }
   u.randomize();
   
-  v.randomize();
-  tws::element_apply(expfun<type>,v);
+  //v.randomize();
+  //tws::element_apply(expfun<type>,v);
   
   //Calculate solution
-  tws::cg(matvec<tws::vector<double>>, u, f, 1.e-10,n);
+  tws::cg(matvec<tws::vector<type>>, u, f, 1.e-16,n);
   
   //Calculate max_norm_err
   max_norm_err = 0;
