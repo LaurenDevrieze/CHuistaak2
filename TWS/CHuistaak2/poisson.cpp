@@ -66,7 +66,7 @@ int main() {
   for (int i = 0; i<u.size(); ++i){
 	err[i] = std::abs(s[i]-u[i]); 
 	if(err[i] > max_norm_err){
-		max_norm_err = err[i]
+		max_norm_err = err[i];
 	}
   }
   
