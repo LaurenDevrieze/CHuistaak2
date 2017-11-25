@@ -20,7 +20,6 @@ void matvec( T const& x, T& y){
   assert( x.size()==y.size() ) ;
   typedef typename T::value_type value_type ;
   value_type h = 1.0/(x.size() + 1.0);
-  std::cout<<"h :"<<h<<std::endl;
   for (int i=1; i<x.size()-1; ++i) {
     y[i] = (1/(h*h))*(-x[i-1] + 2*x[i] - x[i+1]) ;
   }
