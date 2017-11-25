@@ -14,9 +14,10 @@ Commands : g++ -Wall -std=c++14 -o poisson poisson.cpp
 */
 
 template <typename T>
-void poissonFun( T const& x, T& y){
-	assert( x.size()==y.size() ) ;
-  double h = 1/(x.size() + 1);
+void matvec( T const& x, T& y){
+  assert( x.size()==y.size() ) ;
+  double h = 1.0/(real(x.size()) + 1.0);
+  std::cout<<"h :"<<h<<std::endl;
   for (int i=1; i<x.size()-1; ++i) {
     y[i] = (1/(h*h))*(-x[i-1] + 2*x[i] - x[i+1]) ;
   }
@@ -31,16 +32,17 @@ void expfun(T& v){
 
 int main() {
   int n=100;
-  tws::vector<double> f(n) ;
-  tws::vector<double> f_ex(n) ;
-  tws::vector<double> s(n) ;
-  tws::vector<double> u(n) ;
-  tws::vector<double> sol(n) ;
-  tws::vector<double> v(n) ;
+  typedef double type;
+  tws::vector<type> f(n) ;
+  tws::vector<type> f_ex(n) ;
+  tws::vector<type> s(n) ;
+  tws::vector<type> u(n) ;
+  tws::vector<type> v(n) ;
+  tws::vector<type> y(n) ;
 
   //Initialize values
   for (int i=0; i<u.size(); ++i) {
-	double x = (i+1)/(s.size()+1);
+	type x = (i+1)/(s.size()+1);
 	s[i] = (x - x*x)*exp(-x);
 	f[i] = (x*x - 5*x + 4)*exp(-x);
   }
@@ -49,14 +51,21 @@ int main() {
   v.randomize();
   tws::element_apply(v);
   
-  tws::cg(poissonFun<tws::vector<double>>, u, f, 1.e-10,n);
-  poissonFun<tws::vector<double>>(u,sol);
-
-  //std::cout<<"relative error: "<<tws::norm_2(sol-b_ex)/tws::norm_2(b_ex)<<std::endl;
+  //matvec(u,y)
+  
+  tws::cg(matvec<tws::vector<double>>, u, f, 1.e-10,n);
+  matvec<tws::vector<double>>(u,sol);
+  
+  for (int i = 0; i<u.size(); ++i){
+	  
+  }
+  
+  std::cout<<tws::norm_2(sol-b_ex)/tws::norm_2(b_ex)<<std::endl;
   //std::cout<<"f_ex"<<x<<std::endl;
   std::cout<<"f"<<f<<std::endl;
   std::cout<<"u"<<u<<std::endl;
   std::cout<<"s"<<s<<std::endl;
+  std::cout<<"y"<<y<<std::endl;
   //std::cout<<"sol"<<sol<<std::endl;
 
   return 0 ;
