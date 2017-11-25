@@ -48,6 +48,7 @@ int main() {
   //Initialize values
   for (int i=0; i<u.size(); ++i) {
 	type x = (i+1)/(s.size()+1);
+	std::cout<<"s:"<<s[i]<<std::endl;
 	s[i] = (x - x*x)*exp(-x);
 	f[i] = (x*x - 5*x + 4)*exp(-x);
   }
@@ -56,10 +57,8 @@ int main() {
   v.randomize();
   tws::element_apply(expfun<type>,v);
   
-  //matvec(u,y)
-  
+  //Calculate solution
   tws::cg(matvec<tws::vector<double>>, u, f, 1.e-10,n);
-  //matvec<tws::vector<double>>(u,sol);
   
   //Calculate max_norm_err
   max_norm_err = 0;
