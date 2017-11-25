@@ -4,6 +4,8 @@
 #include <iostream>
 #include <typeinfo>
 #include <type_traits>
+#include <limits>
+#include <iomanip>
 
 /* Lauren Devrieze
 
@@ -65,7 +67,7 @@ int main() {
   std::cout
   << std::setprecision(std::numeric_limits<long double>::digits10+1)
   << std::scientific;
-  std::cout<< N << " " << max_norm_err<< "\t"<< std::endl;
+  std::cout<< n << " " << max_norm_err<< "\t"<< std::endl;
   
   //std::cout<<tws::norm_2(sol-b_ex)/tws::norm_2(b_ex)<<std::endl;
   //std::cout<<"f_ex"<<x<<std::endl;
