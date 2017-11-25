@@ -33,8 +33,8 @@ void expfun(K& v){
 	v = exp(v*v/2);
 }
 
-int main() {
-  int n=100;
+int main( int argc, char* argv[]) {
+  int n = std::atoi(argv[1]);
   typedef double type;
   tws::vector<type> f(n) ;
   tws::vector<type> f_ex(n) ;
@@ -47,10 +47,10 @@ int main() {
 
   //Initialize values
   for (int i=0; i<u.size(); ++i) {
-	type x = (i+1.0)/(s.size()+1.0);
+	type x = ((type)i+1.0)/((type).size()+1.0);
 	std::cout<<"s:"<<s[i]<<std::endl;
 	s[i] = (x - x*x)*exp(-x);
-	std::cout<<"f:"<<f[i]<<std::endl;
+	std::cout<<"x:"<<x<<std::endl;
 	f[i] = (x*x - 5*x + 4)*exp(-x);
   }
   u.randomize();
@@ -76,12 +76,9 @@ int main() {
   std::cout<< n << " " << max_norm_err<< "\t"<< std::endl;
   
   //std::cout<<tws::norm_2(sol-b_ex)/tws::norm_2(b_ex)<<std::endl;
-  //std::cout<<"f_ex"<<x<<std::endl;
   std::cout<<"f"<<f<<std::endl;
   std::cout<<"u"<<u<<std::endl;
   std::cout<<"s"<<s<<std::endl;
-  std::cout<<"y"<<y<<std::endl;
-  //std::cout<<"sol"<<sol<<std::endl;
 
   return 0 ;
 } 
