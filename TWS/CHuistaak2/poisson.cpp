@@ -69,7 +69,6 @@ int main() {
 		max_norm_err = err[i]
 	}
   }
-  max_norm_err = std::max(err)
   
   std::cout
   << std::setprecision(std::numeric_limits<long double>::digits10+1)
