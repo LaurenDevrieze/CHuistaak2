@@ -6,6 +6,7 @@
 #include <type_traits>
 #include <limits>
 #include <iomanip>
+#include <algorithm>  
 
 /* Lauren Devrieze
 
@@ -41,7 +42,8 @@ int main() {
   tws::vector<type> u(n) ;
   tws::vector<type> v(n) ;
   tws::vector<type> y(n) ;
-  tws::vector<type> max_norm_err(n) ;
+  tws::vector<type> err(n) ;
+  type max_norm_err;
 
   //Initialize values
   for (int i=0; i<u.size(); ++i) {
@@ -61,8 +63,9 @@ int main() {
   
   //Calculate max_norm_err
   for (int i = 0; i<u.size(); ++i){
-	max_norm_err[i] = std::max(std::abs(s[i]-u[i])); 
+	err[i] = std::abs(s[i]-u[i]); 
   }
+  max_norm_err = std::max(err)
   
   std::cout
   << std::setprecision(std::numeric_limits<long double>::digits10+1)
