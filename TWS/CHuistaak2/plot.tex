@@ -15,8 +15,8 @@ grid=both,
 grid style={line width=.1pt, draw=gray!20},
 major grid style={line width=.2pt,draw=gray!60},
 minor tick num=5,
-xlabel=n,ylabel=Time(s),
-legend pos=north east,
+xlabel=n,ylabel=error,
+legend pos=south west,
 legend style={font=\small}
 ]
 \addplot+[mark=none,very thick,solid,error bars/.cd,y dir=both,y explicit,error bar style={solid,very thin}] table[x index=0, y index =1] {poisson_float.out}; % <======Adjust file name; x index = 0 means x can be found in column 0
