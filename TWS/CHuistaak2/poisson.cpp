@@ -52,7 +52,7 @@ int main( int argc, char* argv[]) {
 	type x = ((i+ 1.0)/(u.size()+ 1.0);
 	s[i] = (x - x*x)*exp(-x);
 	f[i] = (x*x - 5*x + 4)*exp(-x);
-	u[i] = 0;
+	u[i] = 100;
   }
   //u.randomize();
   
