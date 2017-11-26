@@ -37,7 +37,7 @@ void expfun(K& v){
 
 int main( int argc, char* argv[]) {
   int n = std::atoi(argv[1]);
-  typedef float type;
+  typedef double type;
   tws::vector<type> f(n) ;
   tws::vector<type> f_ex(n) ;
   tws::vector<long double> s(n) ;
@@ -52,7 +52,7 @@ int main( int argc, char* argv[]) {
 	type x = (i+ 1.0)/(u.size()+ 1.0);
 	s[i] = (x - x*x)*exp(-x);
 	f[i] = (x*x - 5*x + 4)*exp(-x);
-	u[i] = 100;
+	u[i] = 0;
   }
   //u.randomize();
   
