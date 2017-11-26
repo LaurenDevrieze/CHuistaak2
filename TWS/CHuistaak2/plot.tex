@@ -19,10 +19,10 @@ xlabel=n,ylabel=error,
 legend pos=south west,
 legend style={font=\small}
 ]
-\addplot+[mark=none,very thick,solid,error bars/.cd,y dir=both,y explicit,error bar style={solid,very thin}] table[x index=0, y index =1] {poisson_float.out}; % <======Adjust file name; x index = 0 means x can be found in column 0
-\addplot+[mark=none,very thick,densely dotted,error bars/.cd,y dir=both,y explicit,x dir=both,x explicit,error bar style={solid,very thin}] table[x index=0, y index =1] {poisson_double.out};  % <======Adjust file name; x index = 0 means x can be found in column 0
+\addplot+[mark=none,very thick,solid,error bars/.cd,y dir=both,y explicit,error bar style={solid,very thin}] table[x index=0, y index =1] {poisson_float0.out}; % <======Adjust file name; x index = 0 means x can be found in column 0
+\addplot+[mark=none,very thick,densely dotted,error bars/.cd,y dir=both,y explicit,x dir=both,x explicit,error bar style={solid,very thin}] table[x index=0, y index =1] {poisson_double0.out};  % <======Adjust file name; x index = 0 means x can be found in column 0
 
-\addplot+[mark=none,dashed,very thick,error bars/.cd,y dir=both,y explicit,x dir=both,x explicit,error bar style={solid,very thin}] table[x index=0, y index =1] {poisson_longdouble.out};
+\addplot+[mark=none,dashed,very thick,error bars/.cd,y dir=both,y explicit,x dir=both,x explicit,error bar style={solid,very thin}] table[x index=0, y index =1] {poisson_longdouble0.out};
 %\addplot+[mark=none,very thick,dashdotted,error bars/.cd,y dir=both,y explicit,x dir=both,x explicit,error bar style={solid,very thin}] table[x index=0, y index =1,y error index=2] {sum_bOfast.out};
 \legend{float,double,long double};
 \end{axis}

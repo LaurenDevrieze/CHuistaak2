@@ -37,7 +37,7 @@ void expfun(K& v){
 
 int main( int argc, char* argv[]) {
   int n = std::atoi(argv[1]);
-  typedef double type;
+  typedef long double type;
   tws::vector<type> f(n) ;
   tws::vector<type> f_ex(n) ;
   tws::vector<long double> s(n) ;
