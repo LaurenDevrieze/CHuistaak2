@@ -13,6 +13,8 @@
 Time spent :
 
 Commands : g++ -Wall -std=c++14 -o poisson poisson.cpp
+		   for i in `seq 1 15`; do ./poisson $((2**$i)); done | tee poisson_"type".out
+				=> type = double, float or longdouble
 
 */
 
@@ -35,7 +37,7 @@ void expfun(K& v){
 
 int main( int argc, char* argv[]) {
   int n = std::atoi(argv[1]);
-  typedef float type;
+  typedef double type;
   tws::vector<type> f(n) ;
   tws::vector<type> f_ex(n) ;
   tws::vector<long double> s(n) ;
