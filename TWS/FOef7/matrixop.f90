@@ -238,19 +238,19 @@ contains
 		real(kind=dp), dimension(:,:),allocatable :: c_t
         real(kind=dp), dimension(:,:), intent(out) :: c
         integer, intent(in) :: blocksize
-		integer :: i,j,k, blocks, i_end, j_end, k_end
+		integer :: i,j,k, blocks, i_end, j_end, k_end,n
 		c = 0.0_dp
-		if(size(a,1) <= blocksize) then
+		n = size(a,1)
+		if(n <= blocksize) then
 			call a_maal_b_matmul(a,b,c)
 		else
 			allocate(c_t(blocksize,blocksize))
-			blocks = (size(a,2)/blocksize)**2
-			do i = 1,size(a,1)-blocksize, blocksize+1
-				i_end = min(i+blocksize,size(a,1))
-				do j = 1,size(a,1)-blocksize, blocksize+1
-					j_end = min(j+blocksize,size(a,1))
-					do k = 1,size(a,1)-blocksize, blocksize+1
-						k_end = min(k+blocksize,size(a,1))
+			do j = 1,n, blocksize+1
+				j_end = min(j+blocksize,n)
+				do k = 1,n, blocksize+1
+					k_end = min(k+blocksize,n)
+					do i = 1,n, blocksize+1
+						i_end = min(i+blocksize,n)
 						call a_maal_b_matmul(a(i:i_end,k:k_end),b(k:k_end,j:j_end),c_t)
 						c(i:i_end,j:j_end) = c(i:i_end,j:j_end) + c_t
 					enddo

@@ -66,7 +66,7 @@ program timingProg
     ! 3. Nested loop with dot_product
 	! Bij het dot product is ij het snelst, dit is omdat
 	case(3)
-		call do_timing(a_maal_b_ij_dot_product) !nog aanpassen klopt niet
+		call do_timing(a_maal_b_transp_ji_dot_product) !nog aanpassen klopt niet
     
     ! 4. Using BLAS
     case(4)
@@ -94,20 +94,29 @@ contains
 		time = 0
         ! Do the timing
 		do i = 1,N,10
-			do j = 1,10
+			do j = 1,5
 				if( present(method) ) then
 					call cpu_time(t1)
-					call method( a, b, c )
+					call method( a(1:i,1:i), b(1:i,1:i), c(1:i,1:i) )
 					call cpu_time(t2)
 					time = time + t2-t1
 				else
 					call cpu_time(t1)
-					call method_blocks( a, b, c, blocksize)
+					call method_blocks( a(1:i,1:i), b(1:i,1:i), c(1:i,1:i), blocksize)
 					call cpu_time(t2)
 					time = time + t2-t1
 				end if
 			enddo
-			print *, i , ' ' , time/10 
+			if(method == a_maal_b_jki .or. method == a_maal_b_ij_dot_product) then
+				flops = 2*i*i*i; 
+			end if
+			if(method == a_maal_b_jki_vect) then
+				flops = i*i*i
+			endif
+			if(method == a_maal_b_blas) then
+				flops = 2*i*i
+			endif
+			print *, i , ' ' , flops/((time/5)*10**6) 
 		enddo
     end subroutine do_timing
 
