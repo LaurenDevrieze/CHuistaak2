@@ -1,8 +1,4 @@
 program timingProg
-
-!   Tests of several square matrix-matrix products
-
-program dmr
     use matrixop
     implicit none
     !--------------------------------------------------------------------------
