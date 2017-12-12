@@ -23,8 +23,8 @@ program timingProg
     !--------------------------------------------------------------------------
     ! Main timing program
     !--------------------------------------------------------------------------
-    integer :: k, N, blocksize, numberMethod
-    real, dimension, allocatable :: flops
+    integer :: k, N, blocksize, numberMethod, i
+    real, dimension(:), allocatable :: flops
     integer, dimension(:), allocatable :: seed
     real(kind=dp), dimension(:,:), allocatable :: a, b, c
 
