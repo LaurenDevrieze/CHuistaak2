@@ -82,7 +82,7 @@ program timingProg
     end select
 	
     ! Clean up
-    deallocate(a, b, c, c_matmul)
+    deallocate(a, b, c)
 
 contains
 
