@@ -223,7 +223,7 @@ contains
     !--------------------------------------------------------------------------
     ! 5. Using BLAS : Add library in linking phase
     !--------------------------------------------------------------------------
-    subroutine a_maal_b_blas(a, b, c)
+    subroutine a_maal_b_blas(a, b, c)j
         real(kind=dp), dimension(:,:), intent(in)  :: a, b
         real(kind=dp), dimension(:,:), intent(out) :: c
         c = 0.0_dp
@@ -239,18 +239,25 @@ contains
         real(kind=dp), dimension(:,:), intent(out) :: c
         integer, intent(in) :: blocksize
 		integer :: i,j,k, blocks
-		allocate(c_t(blocksize,blocksize))
 		c = 0.0_dp
-		blocks = (size(a,2)/blocksize)**2
-		do i = 1, blocksize
-			do j = 1,blocksize
-				do k = 1,blocksize
-				call a_maal_b_matmul(a(i:i+blocksize,k:k+blocksize),b(k:k+blocksize,j:j+blocksize),c_t)
-				c(i:i+blocksize,j:j+blocksize) = c(i:i+blocksize,j:j+blocksize) + c_t
+		if(size(a,1) <= blocksize) then
+			call a_maal_b_matmul(a,b,c)
+		else
+			allocate(c_t(blocksize,blocksize))
+			blocks = (size(a,2)/blocksize)**2
+			do i = 1,size(a,1)-blocksize, blocksize+1
+				i_end = min(i+blocksize,size(a,1))
+				do j = 1,size(a,1)-blocksize, blocksize+1
+					j_end = min(j+blocksize,size(a,1))
+					do k = 1,size(a,1)-blocksize, blocksize+1
+						k_end = min(k+blocksize,size(a,1))
+						call a_maal_b_matmul(a(i:i_end,k:k_end),b(k:k_end,j:j_end),c_t)
+						c(i:i_end,j:j_end) = c(i:i_end,j:j_end) + c_t
+					enddo
 				enddo
 			enddo
-		enddo
-		deallocate(c_t)
+			deallocate(c_t)
+		endif
     end subroutine a_maal_b_blocks
     !--------------------------------------------------------------------------
     ! 7. Intrinsic matmul function
