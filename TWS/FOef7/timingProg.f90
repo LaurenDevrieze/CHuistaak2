@@ -120,7 +120,7 @@ contains
 					time = time + t2-t1
 				end if
 			enddo
-			print *, i , ' ' , flops/((time/5)*10**6) 
+			print *, i , ' ' , flops(i)/((time/5)*10**6) 
 		enddo
     end subroutine do_timing
 
