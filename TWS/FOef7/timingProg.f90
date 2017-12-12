@@ -56,7 +56,7 @@ program timingProg
 	! De methodes JKI en KJI zijn ongeveer evensnel. Dit komt omdat in de binnenste loop alle rijen overlopen worden en sindsdien
 	! matrices in Fortran kolomsgewijs opgeslagen worden, liggen de gebruikte elementen steeds naast elkaar.
 	case(1)
-		do i = 1,N,10
+		do i = 50,N,10
 			flops(i) = 2*i*i*i
 		enddo
 		call do_timing(a_maal_b_jki)
@@ -65,7 +65,7 @@ program timingProg
 	! Analoog als bij de vorige methode is JKI en KJI de 2 snelste om dezelfde reden als bij de vorige methode, de opslag van de 
 	! matrix
 	case(2)
-		do i = 1,N,10
+		do i = 50,N,10
 			flops(i) = 2*i*i*i
 		enddo
 		call do_timing(a_maal_b_jki_vect)
@@ -73,14 +73,14 @@ program timingProg
     ! 3. Nested loop with dot_product
 	! Bij het dot product is ij het snelst, dit is omdat
 	case(3)
-		do i = 1,N,10
+		do i = 50,N,10
 			flops(i) = i*i*i
 		enddo
 		call do_timing(a_maal_b_transp_ji_dot_product) !nog aanpassen klopt niet
     
     ! 4. Using BLAS
     case(4)
-		do i = 1,N,10
+		do i = 50,N,10
 			flops(i) = 2*i*i
 		enddo
 		call do_timing(a_maal_b_blas)
@@ -106,7 +106,7 @@ contains
 		integer :: i,j
 		time = 0
         ! Do the timing
-		do i = 1,N,10
+		do i = 50,N,10
 			do j = 1,5
 				if( present(method) ) then
 					call cpu_time(t1)
