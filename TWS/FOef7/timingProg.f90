@@ -24,7 +24,7 @@ program timingProg
     ! Main timing program
     !--------------------------------------------------------------------------
     integer :: k, N, blocksize, numberMethod
-    real :: flops
+    real, dimension, allocatable :: flops
     integer, dimension(:), allocatable :: seed
     real(kind=dp), dimension(:,:), allocatable :: a, b, c
 
@@ -45,6 +45,7 @@ program timingProg
 
     ! Allocate the matrices and one reference matrix
     allocate(a(N,N), b(N,N), c(N,N))
+	allocate(flops(N))
     call random_number(a)
     call random_number(b)
 
@@ -55,21 +56,33 @@ program timingProg
 	! De methodes JKI en KJI zijn ongeveer evensnel. Dit komt omdat in de binnenste loop alle rijen overlopen worden en sindsdien
 	! matrices in Fortran kolomsgewijs opgeslagen worden, liggen de gebruikte elementen steeds naast elkaar.
 	case(1)
+		do i = 1,N,10
+			flops(i) = 2*i*i*i
+		enddo
 		call do_timing(a_maal_b_jki)
     
     ! 2. Nested loop with vector operations
 	! Analoog als bij de vorige methode is JKI en KJI de 2 snelste om dezelfde reden als bij de vorige methode, de opslag van de 
 	! matrix
 	case(2)
+		do i = 1,N,10
+			flops(i) = 2*i*i*i
+		enddo
 		call do_timing(a_maal_b_jki_vect)
     
     ! 3. Nested loop with dot_product
 	! Bij het dot product is ij het snelst, dit is omdat
 	case(3)
+		do i = 1,N,10
+			flops(i) = i*i*i
+		enddo
 		call do_timing(a_maal_b_transp_ji_dot_product) !nog aanpassen klopt niet
     
     ! 4. Using BLAS
     case(4)
+		do i = 1,N,10
+			flops(i) = 2*i*i
+		enddo
 		call do_timing(a_maal_b_blas)
     
     ! 5. In blocks
@@ -107,15 +120,6 @@ contains
 					time = time + t2-t1
 				end if
 			enddo
-			if(method == a_maal_b_jki .or. method == a_maal_b_ij_dot_product) then
-				flops = 2*i*i*i; 
-			end if
-			if(method == a_maal_b_jki_vect) then
-				flops = i*i*i
-			endif
-			if(method == a_maal_b_blas) then
-				flops = 2*i*i
-			endif
 			print *, i , ' ' , flops/((time/5)*10**6) 
 		enddo
     end subroutine do_timing

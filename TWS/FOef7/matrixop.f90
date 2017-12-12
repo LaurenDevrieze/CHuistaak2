@@ -245,12 +245,12 @@ contains
 			call a_maal_b_matmul(a,b,c)
 		else
 			allocate(c_t(blocksize,blocksize))
-			do j = 1,n, blocksize+1
-				j_end = min(j+blocksize,n)
-				do k = 1,n, blocksize+1
-					k_end = min(k+blocksize,n)
-					do i = 1,n, blocksize+1
-						i_end = min(i+blocksize,n)
+			do j = 1,n, blocksize
+				j_end = min(j+blocksize-1,n)
+				do k = 1,n, blocksize
+					k_end = min(k+blocksize-1,n)
+					do i = 1,n, blocksize
+						i_end = min(i+blocksize-1,n)
 						call a_maal_b_matmul(a(i:i_end,k:k_end),b(k:k_end,j:j_end),c_t)
 						c(i:i_end,j:j_end) = c(i:i_end,j:j_end) + c_t
 					enddo
