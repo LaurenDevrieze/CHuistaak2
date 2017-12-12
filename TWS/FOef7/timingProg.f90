@@ -27,18 +27,18 @@ program dmr
     !--------------------------------------------------------------------------
     ! Main timing program
     !--------------------------------------------------------------------------
-    integer :: k, N, blocksize, idx_i, idx_j
+    integer :: k, N, blocksize, numberMethod
     real :: flops
-    real :: dummy_i, dummy_j
     integer, dimension(:), allocatable :: seed
     real(kind=dp), dimension(:,:), allocatable :: a, b, c
-    real(kind=dp), dimension(:,:), allocatable :: c_matmul
 
     ! Request the N and blocksize
     write(unit=*, fmt="(A)", advance="no") "Enter the value for N: "
     read *, N
     write(unit=*, fmt="(A)", advance="no") "Enter the blocksize of the sub-blocks: "
     read *, blocksize
+	write(unit=*, fmt="(A)", advance="no") "Enter which method needs to be timed: "
+	read *, numberMethod
 
     ! Make sure we use the same pseudo-random numbers each time by initializing
     ! the seed to a certain value.
@@ -48,31 +48,43 @@ program dmr
     call random_seed(put=seed)
 
     ! Allocate the matrices and one reference matrix
-    allocate(a(N,N), b(N,N), c(N,N), c_matmul(N,N))
+    allocate(a(N,N), b(N,N), c(N,N))
     call random_number(a)
     call random_number(b)
-    call a_maal_b_matmul(a,b,c_matmul) ! Reference value
 
-    ! Start the timings
+    ! Kies een van de timings om te doen
     
-    ! 1. Three nested loops
-    call do_timing(a_maal_b_ijk ) !nog methode aanpassen
+	select case(numberMethod)
+    ! 1. Nested loop
+	! De methodes JKI en KJI zijn ongeveer evensnel. Dit komt omdat in de binnenste loop alle rijen overlopen worden en sindsdien
+	! matrices in Fortran kolomsgewijs opgeslagen worden, liggen de gebruikte elementen steeds naast elkaar.
+	case(1)
+		call do_timing(a_maal_b_jki)
     
-    ! 2. Two nested loops with vector operations
-    call do_timing( "IKJ, J VECT", a_maal_b_ikj_vect ) !nog aanpassen
+    ! 2. Nested loop with vector operations
+	! Analoog als bij de vorige methode is JKI en KJI de 2 snelste om dezelfde reden als bij de vorige methode, de opslag van de 
+	! matrix
+	case(2)
+		call do_timing(a_maal_b_jki_vect)
     
-    ! 3. Two nested loops with dot_product
-    call do_timing( "IJ DOT_PRODUCT", a_maal_b_ij_dot_product ) !nog aanpassen
+    ! 3. Nested loop with dot_product
+	! Bij het dot product is ij het snelst, dit is omdat
+	case(3)
+		call do_timing(a_maal_b_ij_dot_product) !nog aanpassen klopt niet
     
-    ! 5. Using BLAS
-    call do_timing(a_maal_b_blas )
+    ! 4. Using BLAS
+    case(4)
+		call do_timing(a_maal_b_blas)
     
-    ! 6. In blocks
-    call do_timing(method_blocks=a_maal_b_blocks )
+    ! 5. In blocks
+	case(5)
+		call do_timing(method_blocks=a_maal_b_blocks )
     
-    ! 7. Intrinsic matmul function
-    call do_timing(a_maal_b_matmul )
-    
+    ! 6. Intrinsic matmul function
+	case(6)
+		call do_timing(a_maal_b_matmul )
+    end select
+	
     ! Clean up
     deallocate(a, b, c, c_matmul)
 
@@ -82,10 +94,10 @@ contains
         procedure(a_maal_b_interface), optional :: method
         procedure(a_maal_b_blocks_interface), optional :: method_blocks
         real :: t1, t2, time
-		integer :: i
+		integer :: i,j
 		time = 0
         ! Do the timing
-		do i = 1,N
+		do i = 1,N,10
 			do j = 1,10
 				if( present(method) ) then
 					call cpu_time(t1)
