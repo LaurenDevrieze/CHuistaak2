@@ -223,7 +223,7 @@ contains
     !--------------------------------------------------------------------------
     ! 5. Using BLAS : Add library in linking phase
     !--------------------------------------------------------------------------
-    subroutine a_maal_b_blas(a, b, c)j
+    subroutine a_maal_b_blas(a, b, c)
         real(kind=dp), dimension(:,:), intent(in)  :: a, b
         real(kind=dp), dimension(:,:), intent(out) :: c
         c = 0.0_dp
@@ -238,7 +238,7 @@ contains
 		real(kind=dp), dimension(:,:),allocatable :: c_t
         real(kind=dp), dimension(:,:), intent(out) :: c
         integer, intent(in) :: blocksize
-		integer :: i,j,k, blocks
+		integer :: i,j,k, blocks, i_end, j_end, k_end
 		c = 0.0_dp
 		if(size(a,1) <= blocksize) then
 			call a_maal_b_matmul(a,b,c)
