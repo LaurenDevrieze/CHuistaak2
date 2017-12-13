@@ -1,0 +1,15 @@
+% Input-file of vertices for mesh shown in Fig. 1 and Fig. 3 of the paper 
+% "Remarks around 50 lines of Matlab: Short finite element 
+% implementation" by J. Alberty, C. Carstensen and S. A. Funken.
+%
+% node-number  /  x-coordinate  / y-coordinate
+% 
+ 1  0.00 0.00 
+ 2  2.00 0.00 
+ 3  4.00 0.00 
+ 4  0.00 2.00 
+ 5  2.00 2.00 
+ 6  4.00 2.00 
+ 7  0.00 4.00 
+ 8  2.00 4.00 
+ 9  4.00 4.00 
