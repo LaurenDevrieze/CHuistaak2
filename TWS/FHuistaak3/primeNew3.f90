@@ -10,11 +10,14 @@ program prime
 !Optimalisaties 
 
 !	(1) useless, 2de dimensie primeList, overbodige printstatements, nbChecks verwijderen
+!		pn = 65731 n = 6569
 
 !	(2) j hoeft maar tot sqrt(i) te lopen en eenmaal isPrime vals is weten we zeker dat die i geen priem is dus kunnen
 !		we uit de do lus springen
+!		pn = 7741009 n = 523471
 
 !	(3) Stappen van 2 ipv 1 nemen aangezien alle even getallen toch niet moeten meegerekend worden.
+!		pn = 8336387 n = 560881
 
 
 implicit none

@@ -3,25 +3,21 @@ program prime
 
 !Lauren Devrieze
 
-!Tijdsbesteding: 3 uur
+!Tijdsbesteding:
 
-!Commando's: gfortran -o prime prime.f90
+!Commando's
 
 !Optimalisaties 
 
 !	(1) useless, 2de dimensie primeList, overbodige printstatements, nbChecks verwijderen
 !		pn = 65731 n = 6569
 
-!	(2) primeList(j) hoeft maar tot Jmax te lopen, met Jmax = ceiling(sqrt(real(primeList(i)))) en eenmaal isPrime 
-!		vals is weten we zeker dat primeList(i) geen priem is dus kunnen we uit de do lus springen
+!	(2) j hoeft maar tot sqrt(i) te lopen en eenmaal isPrime vals is weten we zeker dat die i geen priem is dus kunnen
+!		we uit de do lus springen
 !		pn = 7741009 n = 523471
 
 !	(3) Stappen van 2 ipv 1 nemen aangezien alle even getallen toch niet moeten meegerekend worden.
 !		pn = 8336387 n = 560881
-
-!	Hierna zouden nog optimalisaties mogelijk zijn, bijvoorbeeld door het algoritme van de zeff van Eratosthenes te
-!	gebruik, maar hierbij zou er niet zo veel van het originele algoritme overblijven, dus wordt er beslist om de
-!	optimalisatie hier te beëindigen. Er is veel vooruitgang gemaakt met het originele algoritme
 
 
 implicit none
@@ -38,7 +34,7 @@ call cpu_time(start_time)
 
 n = 4000000
 
-!nbChecks = 0 (1)
+!nbChecks = 0
 allocate(primeList(n))
 
 
@@ -80,6 +76,9 @@ do i = 3,n
   end do
 end do
 	
-!write(unit=*, fmt="(A, I0, A, I0, A, L, A)")  "! Prime ", n, " is ", primeList(1,n), ", check = ", .false., ", adjusted: " (1)
+
+!write(unit=*, fmt="(A, I0, A, I0, A, L, A)")  "! Prime ", n, " is ", primeList(1,n), ", check = ", .false., ", adjusted: " 
+
+
 
 end program prime

@@ -9,22 +9,23 @@
 \begin{axis}[
 height=8cm,
 width=12cm,
-xmode = log,
+%xmode = log,
 ymode = log,
 grid=both,
 grid style={line width=.1pt, draw=gray!20},
 major grid style={line width=.2pt,draw=gray!60},
 minor tick num=5,
 xlabel=N,ylabel= Mflop/s,
-legend pos=north west,
+legend pos=south west,
 legend style={font=\small}
 ]
 \addplot+[mark=none,very thick,solid,y dir=both,y explicit] table[x index=0, y index =1] {lus.out}; 
+\addplot+[mark=none,very thick,densely dashed,y dir=both,y explicit,x dir=both,x explicit] table[x index=0, y index =1] {vect.out};
 \addplot+[mark=none,very thick,densely dotted,y dir=both,y explicit,x dir=both,x explicit] table[x index=0, y index =1] {dot.out};
 \addplot+[mark=none,dashed,very thick,y dir=both,y explicit,x dir=both,x explicit] table[x index=0, y index =1] {blas.out};
-\addplot+[mark=none,very thick,dashdotted,y dir=both,y explicit,x dir=both,x explicit] table[x index=0, y index =1] {block.out};
-\addplot+[mark=none,very thick,dotted,y dir=both,y explicit,x dir=both,x explicit] table[x index=0, y index =1] {matmul.out};
-\legend{lussen, dot\_product, BLAS, bloksgewijs, matmul};
+%\addplot+[mark=none,very thick,dashdotted,y dir=both,y explicit,x dir=both,x explicit] table[x index=0, y index =1] {block.out};
+%\addplot+[mark=none,very thick,dotted,y dir=both,y explicit,x dir=both,x explicit] table[x index=0, y index =1] {matmul.out};
+\legend{lussen, vector, dot\_product, BLAS, bloksgewijs, matmul};
 \end{axis}
 
 \end{tikzpicture}

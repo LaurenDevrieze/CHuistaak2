@@ -10,13 +10,22 @@
 
 /* Lauren Devrieze
 
-Time spent :
+Time spent : 5 hours
 
 Commands : g++ -Wall -std=c++14 -o poisson poisson.cpp
 		   for i in `seq 1 15`; do ./poisson $((2**$i)); done | tee poisson_"type".out
 				=> type = double, float or longdouble
-
-*/
+				
+Discussion: - for the startvector u, a randomised vector is used. A few different vectors
+			  were used to test and the results were very similar.
+			- In the figure poisson.pdf we see that the error of double and longdouble is
+			  is the same and monotonously decreasing. This is because on double and long-
+			  double it is the trunctuation error that has the biggest effect and not the
+			  rounding error.
+			  For float the error decreases first but then it increases again until the 
+			  result is useless. This is caused because of rounding errors. For example
+			  adding numbers of different magnitudes with each other.
+*/ 
 
 template <typename T>
 void matvec( T const& x, T& y){
@@ -36,14 +45,13 @@ void expfun(K& v){
 }
 
 int main( int argc, char* argv[]) {
+  //Declare variables
   int n = std::atoi(argv[1]);
   typedef long double type;
   tws::vector<type> f(n) ;
-  tws::vector<type> f_ex(n) ;
   tws::vector<long double> s(n) ;
   tws::vector<type> u(n) ;
   tws::vector<type> v(n) ;
-  tws::vector<type> y(n) ;
   tws::vector<type> err(n) ;
   type max_norm_err;
 
@@ -52,12 +60,11 @@ int main( int argc, char* argv[]) {
 	type x = (i+ 1.0)/(u.size()+ 1.0);
 	s[i] = (x - x*x)*exp(-x);
 	f[i] = (x*x - 5*x + 4)*exp(-x);
-	u[i] = 0;
   }
-  //u.randomize();
+  u.randomize();
   
-  //v.randomize();
-  //tws::element_apply(expfun<type>,v);
+  v.randomize();
+  tws::element_apply(expfun<type>,v);
   
   //Calculate solution
   tws::cg(matvec<tws::vector<type>>, u, f, 1.e-16,n);
@@ -71,15 +78,11 @@ int main( int argc, char* argv[]) {
 	}
   }
   
+  //Output max_norm_err
   std::cout
   << std::setprecision(std::numeric_limits<long double>::digits10+1)
   << std::scientific;
   std::cout<< n << " " << max_norm_err<< "\t"<< std::endl;
-  
-  //std::cout<<tws::norm_2(sol-b_ex)/tws::norm_2(b_ex)<<std::endl;
-  /*std::cout<<"f"<<f<<std::endl;
-  std::cout<<"u"<<u<<std::endl;
-  std::cout<<"s"<<s<<std::endl;*/
 
   return 0 ;
 } 

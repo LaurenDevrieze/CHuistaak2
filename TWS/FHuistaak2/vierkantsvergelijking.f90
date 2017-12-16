@@ -1,6 +1,12 @@
 program vierkantsvergelijking
 !Lauren Devrieze
 
+!Tijdsbesteding: 7-8h
+
+!Commando's : 	gfortran -o vierkantsvgl vierkantsvergelijking.f90
+!					=> Ook vervangen door ifort en nagfor
+!				echo -e "-767.0 17.0" | ./vierkantvgl
+
 !OUTPUT GFORTRAN EN IFORT
 
 !                        single precision       double precision      quadruple precision
@@ -23,7 +29,10 @@ program vierkantsvergelijking
 
 !BESPREKING PRECISIE WAARDEN
 
-
+	!Bij gfortran en ifort hebben alle constantes dezelfde waarde en deze komen ongeveer overeen met de juiste
+	! waarden. Bij deze compilers wordt kind voorgesteld door aantal bytes.
+	!Bij nagfor zijn er enkele niet logische waarden bij de quadruple precisie, maar de 2 andere precisies komen
+	! wel overeen met de andere waarden. Bij deze compiler wordt ook de kind sequentieel voorgesteld.
 
 !OUTPUT ALGORITMES (GFORTRAN)
 
@@ -40,9 +49,26 @@ program vierkantsvergelijking
 	!Als we naar de output kijken zien we eerst en vooral dat vooral bij kleine waarden voor nulpunten
 	! er een verschil is tussen de 2 algoritmes
 	!Om duidelijk weer te geven welk algoritme het best is nemen we de volgende waarden: b = 999.99999 en c = 0.01
-	!Deze veelterm heeft 1000 en 0.0001 als nulpunt
+	!Deze veelterm heeft 1000 en 0.00001 als nulpunt
 	
-
+	!Resultaat algoritme 1 en 2 (enkele precisie)
+	!1000.0000000000   0.0000305176		=> Algoritme1
+	!1000.0000000000   0.0000100000		=> Algoritme2
+	
+	!Het is duidelijk dat algoritme 2 veel nauwkeuriger is als er een groot en een klein nulpunt is. Dit komt
+	! doordat b/2 ongeveer gelijk zal zijn met de discriminant omdat c zo klein is.
+	
+	!Een voorbeeld waarbij algoritme 1 beter is, is bij volgende waarden: b en c = 0, dus 0 als nulpunt
+	
+	!Resultaat algoritme 1 en 2 (enkele precisie)
+	!0.0000000000  -0.0000000000
+	!-0.0000000000            NaN
+	
+	!Bij algoritme 2 wordt er gedeeld door het 1ste nulpunt wat in dit geval 0 is waardoor als 2de nulpunt NaN
+	! verkregen wordt.
+	
+	!Dit is natuurlijk echter een specifiek geval. Algemeen gezien zal algoritme 2 het best zijn omdat het
+	! algoritme vermijdt dat ongeveer even grote waarden van elkaar afgetrokken worden.
 
 implicit none
 
@@ -63,14 +89,12 @@ print *, 'Resultaat algoritme 1 en 2 (dubbele precisie)'
 print '(f15.10,f15.10)', algoritme1dp(b,c)
 print '(f15.10,f15.10)', algoritme2dp(b,c)
 
-
 b_sp = b
 c_sp = c
 
 print *, 'Resultaat algoritme 1 en 2 (enkele precisie)'
 print '(f15.10,f15.10)', algoritme1(b_sp,c_sp)
 print '(f15.10,f15.10)', algoritme2(b_sp,c_sp)
-
 
 contains
 
