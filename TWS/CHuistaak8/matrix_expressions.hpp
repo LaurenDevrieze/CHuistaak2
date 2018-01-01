@@ -167,6 +167,45 @@ matrix_trans<C> transpose(C const& c) {
   return matrix_trans<C>(c) ;
 }
 
+template <typename M, typename V>
+    class matrix_vector_multiply {
+        public:
+        typedef typename V::size_type size_type ;
+        typedef decltype( typename M::value_type() + typename V::value_type() ) value_type ;
+
+        public:
+        matrix_vector_multiply( M const& m, V const& v )
+        : m_( m )
+        , v_( v )
+        {
+			assert( m.num_columns() == v.size() );
+        }
+
+        size_type size() const {
+            return m_.num_rows() ;
+        }
+
+        value_type operator()( size_type j ) const {
+            assert( j>=0 ) ;
+            assert( j<size() ) ;
+			value_type sum = 0;
+			for (int i = 0; i < m_.num_columns; i++){
+				sum = sum + m_(j,i)*v_(i);
+			}
+            return sum;
+        }
+
+        private:
+        M const& m_ ;
+        V const& v_ ;
+    } ; //matrix_vector_multiply
+
+    template <typename M, typename V>
+    matrix_vector_multiply<M,V> multiply(M const& m, V const& v ) {
+        return matrix_vector_multiply<M,V>(m,v) ;
+		// hoe vector krijgen?
+    }//multiply
+
 }
 #endif
 

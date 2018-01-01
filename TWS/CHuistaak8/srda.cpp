@@ -19,15 +19,6 @@ Adjust the file names or uncomment these matrix operations to avoid ambiguity (i
 
 		
 namespace tws{
-
-template <typename T>
-  void xtx_op( T const& x, T& y){
-	// een van 2 kiezen
-	y = multiply(transpose(X),multiply(X,x)) + beta*x;
-	
-	/*t = multiply(X,x);
-	y = multiply(transpose(X),t) + beta*x;*/
-  }
 	
 int srda(){
  /*-------------------------------------------------------
@@ -63,7 +54,23 @@ int srda(){
   double beta=1e1;
 
   //TODO Define: xtx_op using X 
-  
+  auto xtx_op = [X,beta]( auto const& x, auto& y ){
+	y = multiply(transpose(X),multiply(X,x)) + beta*x;
+	};
+	
+  /*auto xtx_op = [X,beta]( auto const& x, auto& y ){
+	t = multiply(X,x);
+	y = multiply(transpose(X),t) + beta*x;
+	};*/
+	
+	/*template <typename T>
+  void xtx_op( T const& x, T& y){
+	// een van 2 kiezen
+	y = multiply(transpose(X),multiply(X,x)) + beta*x;
+	
+	t = multiply(X,x);
+	y = multiply(transpose(X),t) + beta*x;
+  }*/
 
   tws::cg( xtx_op, x, b, 1.e-10, X.num_columns()*X.num_rows() ) ;
 
