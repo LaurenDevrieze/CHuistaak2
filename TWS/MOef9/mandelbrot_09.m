@@ -49,18 +49,31 @@
 % MANDELBROT_09
 function R_tilde=mandelbrot_09(center,radius,steps,maxiter)
 
+%Z = []; (0)
+%C = []; (0)
 R_tilde = zeros(steps);
 N = repmat(0:steps-1,steps,1);
 M = repmat((0:steps-1).',1,steps);
 
 C = real(center)-radius+2*N*radius/(steps-1) ...
-   + 1i*(imag(center)-radius+2*M*radius/(steps-1));
+   + 1i*(imag(center)-radius+2*M*radius/(steps-1));  
+%C(m,n) = real(center)-radius+2*(n-1)*radius/(steps-1) ... (1)
+%                    + 1i*(imag(center)-radius+2*(m-1)*radius/(steps-1));
+%C(m,n) = real(center)-radius+2*(n-1)*radius/(steps-1) ... (8)
+%           + 1i*(imag(center)-radius+2*(m-1)*radius/(steps-1));
 Z = C;
 R_tilde(:,:) = maxiter;
 for r=1:maxiter
+% for m=1:steps (3)
+% for n=1:steps    
+%    if r == 0 (2)
     [m,n] = find(abs(Z) <= 2);
     id = (n-1)*size(Z,1) + m;
     Z_temp = Z(id);
+%   Z(m,n) = Z(m,n)*Z(m,n) + C(m,n); (4)
+%   Z(m(j),n(j)) = Z(m(j),n(j))*Z(m(j),n(j)) + C(m(j),n(j)); (5)
+%   Z(id) = Z(id)*Z(id) + C(id); (6)
+%   Z(id) = Z(id).*Z(id) + C(id); (7)
     Z(id) = Z_temp.*Z_temp + C(id);
     R_tilde(id) = r;
 end

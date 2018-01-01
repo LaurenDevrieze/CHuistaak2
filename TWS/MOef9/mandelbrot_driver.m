@@ -6,8 +6,8 @@
 
 % Disussion of the results:
 %   To calculate the timings the function timeit was used since it calls
-%   the function several times and takes the median of it to get more
-%   accurate results.
+%   the function several times and takes the median of the timing to get 
+%   more accurate results.
 %   For the steps in the graph different powers of 2 are used to show how
 %   much the time increases when the steps are doubled. The trend of the
 %   increasing values is mostly a straight line and if you check the values
