@@ -105,6 +105,10 @@ int main(int argc, char *argv[]) {
  
   double beta=1.0;
   tws::matrix<double> X(N,N,1.0);
+  
+  auto xtx_op = [X,beta]( auto const& x, auto& y ){
+	y = multiply(transpose(X),multiply(X,x)) + beta*x;
+	};
 
   //TODO: Create xtx_op, use your knowledge from C++2
   tws::time_mv(xtx_op,N,number_exp,discard);
