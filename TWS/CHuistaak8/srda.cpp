@@ -58,8 +58,8 @@ int srda(){
 	// een van 2 kiezen
 	y = multiply(transpose(X),multiply(X,x)) + beta*x;
 	
-	t = multiply(X,x);
-	y = multiply(transpose(X),t) + beta*x;
+	/*t = multiply(X,x);
+	y = multiply(transpose(X),t) + beta*x;*/
 }
 
   tws::cg( xtx_op, x, b, 1.e-10, X.num_columns()*X.num_rows() ) ;
