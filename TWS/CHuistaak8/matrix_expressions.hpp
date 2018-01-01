@@ -189,7 +189,7 @@ template <typename M, typename V>
             assert( j>=0 ) ;
             assert( j<size() ) ;
 			value_type sum = 0;
-			for (int i = 0; i < m_.num_columns; i++){
+			for (int i = 0; i < m_.num_columns(); i++){
 				sum = sum + m_(j,i)*v_(i);
 			}
             return sum;
