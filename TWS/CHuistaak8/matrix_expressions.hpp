@@ -4,7 +4,7 @@
 namespace tws{
 
 // V1, V2 : Vector
-template <typename V1, typename V2>
+/*template <typename V1, typename V2>
 class matrix_sum {
   public:
     typedef typename V1::size_type size_type ;
@@ -126,7 +126,7 @@ class matrix_scalMul {
 template <typename S, typename V1>
 matrix_scalMul<S,V1> operator*(S const& s, V1 const& v1 ) {
   return matrix_scalMul<S,V1>(s,v1) ;
-}
+}*/
 
 // C : Matrix
 template <typename C>
@@ -156,6 +156,7 @@ class matrix_trans {
       assert( i<num_rows() ) ;
 	  assert( j<num_columns() ) ;
       return c_(j,i) ;
+	}
 
   private:
     C const& c_ ;
