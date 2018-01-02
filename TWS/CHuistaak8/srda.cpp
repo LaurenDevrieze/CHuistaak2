@@ -77,11 +77,13 @@ int srda(){
 
   #ifdef V2
 	tws::cg( xtx_op_v2, x, b, 1.e-10, X.num_columns()*X.num_rows() ) ;
+	xtx_op_v2 ( x, b) ;
   #else
 	tws::cg( xtx_op_v1, x, b, 1.e-10, X.num_columns()*X.num_rows() ) ;
+	xtx_op_v1 ( x, b) ;
   #endif
 
-  xtx_op ( x, b) ;
+  
   std::cout<<"relative error: "<<tws::norm_2(b-b_ex)/tws::norm_2(b_ex)<<std::endl;
 
 
