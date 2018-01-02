@@ -71,7 +71,7 @@ int srda(){
   };
 	
   auto xtx_op_v2 = [X,beta]( tws::vector<double> const& x, tws::vector<double>& y ){
-	tws::vector<double> t = multiply(X,x);
+	auto t = multiply(X,x);
 	y = multiply(transpose(X),t) + beta*x;
   };
 
@@ -118,7 +118,7 @@ int main(int argc, char *argv[]) {
   };
 	
   auto xtx_op_v2 = [X,beta]( tws::vector<double> const& x, tws::vector<double>& y ){
-	tws::vector<double> t = multiply(X,x);
+	auto t = multiply(X,x);
 	y = multiply(transpose(X),t) + beta*x;
   };
 
