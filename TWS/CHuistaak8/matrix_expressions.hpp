@@ -203,7 +203,6 @@ template <typename M, typename V>
     template <typename M, typename V>
     matrix_vector_multiply<M,V> multiply(M const& m, V const& v ) {
         return matrix_vector_multiply<M,V>(m,v) ;
-		// hoe vector krijgen?
     }//multiply
 
 }

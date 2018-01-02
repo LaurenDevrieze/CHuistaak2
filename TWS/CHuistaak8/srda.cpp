@@ -53,24 +53,14 @@ int srda(){
 
   double beta=1e1;
 
-  //TODO Define: xtx_op using X 
-  auto xtx_op = [X,beta]( auto const& x, auto& y ){
-	y = multiply(transpose(X),multiply(X,x)) + beta*x;
-	};
-	
   /*auto xtx_op = [X,beta]( auto const& x, auto& y ){
-	t = multiply(X,x);
-	y = multiply(transpose(X),t) + beta*x;
-	};*/
-	
-	/*template <typename T>
-  void xtx_op( T const& x, T& y){
-	// een van 2 kiezen
 	y = multiply(transpose(X),multiply(X,x)) + beta*x;
+  };*/
 	
+  auto xtx_op = [X,beta]( auto const& x, auto& y ){
 	t = multiply(X,x);
 	y = multiply(transpose(X),t) + beta*x;
-  }*/
+  };
 
   tws::cg( xtx_op, x, b, 1.e-10, X.num_columns()*X.num_rows() ) ;
 
@@ -106,14 +96,17 @@ int main(int argc, char *argv[]) {
   double beta=1.0;
   tws::matrix<double> X(N,N,1.0);
   
-  auto xtx_op = [X,beta]( auto const& x, auto& y ){
+  /*auto xtx_op = [X,beta]( auto const& x, auto& y ){
 	//std::cout<<X.num_columns()<<std::endl;
 	//std::cout<<x.size()<<std::endl;
 	y = multiply(transpose(X),multiply(X,x)) + beta*x;
+  };*/
 	
-	};
+  auto xtx_op = [X,beta]( auto const& x, auto& y ){
+	t = multiply(X,x);
+	y = multiply(transpose(X),t) + beta*x;
+  };
 
-  //TODO: Create xtx_op, use your knowledge from C++2
   tws::time_mv(xtx_op,N,number_exp,discard);
     
   tws::srda();
