@@ -1,37 +1,84 @@
+#include "vector.hpp"
+#include "matrix.hpp"
+#include "tws_util.hpp"
+#include "vector_expressions.hpp"
+#include "matrix_expressions.hpp"
+
 /*Homework 3 C++
 
 Lauren Devrieze
 
 Time spent: 4-5 hours
 
-Commands: g++ -Wall -std=c++14 -o srda srda.cpp
+Commands: g++ -Wall -std=c++14 -o srda srda.cpp (-DVERSION2)
 		  for i in `seq 1 10`; do ./srda $((2**$i)) 100 5; done | tee mult1.out
 		  
-Only the files srda.cpp and matrix_expressions were changed. 
+Only the files srda.cpp and matrix_expressions were changed.
+
+Version 1: 	In 'multiply(X,x)' the complexity is O(N^2) since that's the complexity
+			of the inner product, but since in xtx_op_v1 'multiply(transpose(X),multiply(X,x))'
+			is done. 'multiply(X,x)' will have to be calculated N times. The complexity
+			is then O(N^3). This is also clear in the plot.
+			
+Version 2:	In this version multiply(X,x) is saved in a variable such that it doesn't have to
+			be calculated N times so then the complexity is O(N^2)
 */
 
 
-#include "vector.hpp"
-#include "matrix.hpp"
-#include "tws_util.hpp"
 
-/*
-The vector expressions are needed for CG. 
-
-You will not need the addition, substraction and scalar operators for the matrices. 
-
-Adjust the file names or uncomment these matrix operations to avoid ambiguity (if there is any)
-
-*/
-
-//TODO: include the multiply / transpose expression + operation with the existing vector expressions
-#include "vector_expressions.hpp"
-#include "matrix_expressions.hpp"
 
 
 
 		
 namespace tws{
+
+// xtx version 1	
+template<typename X, typename V>
+class xtx_v1{
+    typedef decltype( typename X::value_type() + typename V::value_type() ) value_type ;
+  
+    public:
+    xtx_v1(X const& m, value_type const& beta)
+    : m_(m),
+      beta_(beta)
+    {}
+
+    void operator()(V const& x, V& y)const{
+        assert(x.size()==y.size()) ;
+        assert(x.size()==m_.num_columns()) ;
+        y = multiply(transpose(m_), multiply(m_,x)) + beta_*x ;
+    }
+        
+    private:
+    X const& m_ ;
+    value_type const& beta_ ;
+};
+
+// xtx version 2
+template<typename X, typename V>
+class xtx_v2{
+    typedef typename X::size_type size_type ;
+    typedef decltype( typename X::value_type() + typename V::value_type() ) value_type ;
+  
+    public:
+    xtx_v2(X const& m, value_type const& beta)
+    : m_(m),
+      beta_(beta)
+    {}
+
+    void operator()(V const& x, V& y)const{
+        assert(x.size()==y.size()) ;
+        assert(x.size()==m_.num_columns()) ;
+
+        tws::vector<double> t(m_.num_rows());
+        t = multiply(m_,x);
+        y = multiply(transpose(m_),t) + beta_*x;
+    }
+        
+    private:
+    X const& m_ ;
+    value_type const& beta_ ;
+};
 	
 int srda(){
  /*-------------------------------------------------------
@@ -66,26 +113,16 @@ int srda(){
 
   double beta=1e1;
 
-  auto xtx_op_v1 = [X,beta]( tws::vector<double> const& x, tws::vector<double>& y ){
-	y = multiply(transpose(X),multiply(X,x)) + beta*x;
-  };
-	
-  auto xtx_op_v2 = [X,beta]( tws::vector<double> const& x, tws::vector<double>& y ){
-	auto t = multiply(X,x);
-	y = multiply(transpose(X),t) + beta*x;
-  };
-
   #ifdef VERSION2
-	tws::cg( xtx_op_v2, x, b, 1.e-10, X.num_columns()*X.num_rows() ) ;
-	xtx_op_v2 ( x, b) ;
+    xtx_v2<tws::matrix<double>, tws::vector<double>> xtx_op(X, beta);
   #else
-	tws::cg( xtx_op_v1, x, b, 1.e-10, X.num_columns()*X.num_rows() ) ;
-	xtx_op_v1 ( x, b) ;
+	xtx_v1<tws::matrix<double>, tws::vector<double>> xtx_op(X, beta);
   #endif
 
+  tws::cg( xtx_op, x, b, 1.e-10, X.num_columns()*X.num_rows() ) ;
+  xtx_op ( x, b) ;
   
   std::cout<<"relative error: "<<tws::norm_2(b-b_ex)/tws::norm_2(b_ex)<<std::endl;
-
 
   tws::vector<double> train_rating(X.num_rows(),1) ; 
   train_rating=multiply(X,x);
@@ -115,21 +152,14 @@ int main(int argc, char *argv[]) {
   double beta=1.0;
   tws::matrix<double> X(N,N,1.0);
   
-  auto xtx_op_v1 = [X,beta]( tws::vector<double> const& x, tws::vector<double>& y ){
-	y = multiply(transpose(X),multiply(X,x)) + beta*x;
-  };
-	
-  auto xtx_op_v2 = [X,beta]( tws::vector<double> const& x, tws::vector<double>& y ){
-	auto t = multiply(X,x);
-	y = multiply(transpose(X),t) + beta*x;
-  };
 
   #ifdef VERSION2
-	tws::time_mv(xtx_op_v2,N,number_exp,discard);
+    xtx_v2<tws::matrix<double>, tws::vector<double>> xtx_op(X, beta);
   #else
-	tws::time_mv(xtx_op_v1,N,number_exp,discard);
+	xtx_v1<tws::matrix<double>, tws::vector<double>> xtx_op(X, beta);
   #endif
   
+  tws::time_mv(xtx_op,N,number_exp,discard);
     
   tws::srda();
   return 0;
