@@ -246,6 +246,6 @@ int main(int argc, char *argv[]) {
     #endif
     tws::time_mv(xtx_op,N,number_exp,discard);
 
-    //tws::srda(); //comment out when gathering data, only used for testing correctness
+    tws::srda(); //comment out when gathering data, only used for testing correctness
     return 0;
 } 
