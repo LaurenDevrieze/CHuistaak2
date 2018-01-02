@@ -114,9 +114,9 @@ int srda(){
   double beta=1e1;
 
   #ifdef VERSION2
-    xtx_v2<tws::matrix<double>, tws::vector<double>> xtx_op(X, beta);
+    tws::xtx_v2<tws::matrix<double>, tws::vector<double>> xtx_op(X, beta);
   #else
-	xtx_v1<tws::matrix<double>, tws::vector<double>> xtx_op(X, beta);
+	tws::xtx_v1<tws::matrix<double>, tws::vector<double>> xtx_op(X, beta);
   #endif
 
   tws::cg( xtx_op, x, b, 1.e-10, X.num_columns()*X.num_rows() ) ;
@@ -154,9 +154,9 @@ int main(int argc, char *argv[]) {
   
 
   #ifdef VERSION2
-    xtx_v2<tws::matrix<double>, tws::vector<double>> xtx_op(X, beta);
+    tws::xtx_v2<tws::matrix<double>, tws::vector<double>> xtx_op(X, beta);
   #else
-	xtx_v1<tws::matrix<double>, tws::vector<double>> xtx_op(X, beta);
+	tws::xtx_v1<tws::matrix<double>, tws::vector<double>> xtx_op(X, beta);
   #endif
   
   tws::time_mv(xtx_op,N,number_exp,discard);
