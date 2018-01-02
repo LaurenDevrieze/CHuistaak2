@@ -16,10 +16,17 @@ Commands: 	g++ -Wall -std=c++14 -o srda srda.cpp (-DVERSION2)
 Only the files srda.cpp and matrix_expressions were changed.
 
 Output srda:
-relative error: 6.87699e-11
-train auc roc: 0.821888
-test auc roc: 0.564456
+	madelon:
+		relative error: 6.87699e-11
+		train auc roc: 0.821888
+		test auc roc: 0.564456
+	
+	gaussian:
+		relative error: 5.77924e-15
+		train auc roc: 0.965034
+		test auc roc: 0.972928
 
+These results are the same as in the task, so the implementation is correct.
 
 Advantages expression templates: 
 	the result is only computed when it is assigned to something such that no temporary solutions
@@ -93,16 +100,16 @@ int srda(){
  /*-------------------------------------------------------
     perform SRDA, define xtx_op below 
     -------------------------------------------------------*/
-  /*std::string s1("madelon/madelon_train.data");
+  std::string s1("madelon/madelon_train.data");
   auto X=tws::matrix_read<tws::matrix<double>>(s1);
   std::string s2("madelon/madelon_train.labels");
   auto labels=tws::vector_read<tws::vector<double>>(s2);
   std::string s3("madelon/madelon_valid.data");
   auto Xtest=tws::matrix_read<tws::matrix<double>>(s3);
   std::string s4("madelon/madelon_valid.labels");
-  auto test_labels=tws::vector_read<tws::vector<int>>(s4);*/
+  auto test_labels=tws::vector_read<tws::vector<int>>(s4);
 
-
+/*
   std::string s1("gaussian/gaussian_train.data");
   auto X=tws::matrix_read<tws::matrix<double>>(s1);
   std::string s2("gaussian/gaussian_train.labels");
@@ -111,7 +118,7 @@ int srda(){
   auto Xtest=tws::matrix_read<tws::matrix<double>>(s3);
   std::string s4("gaussian/gaussian_valid.labels");
   auto test_labels=tws::vector_read<tws::vector<int>>(s4); 
-
+*/
 
 
   tws::vector<double> x(X.num_columns(),0.) ; 
@@ -170,6 +177,6 @@ int main(int argc, char *argv[]) {
   
   tws::time_mv(xtx_op,N,number_exp,discard);
     
-  tws::srda(); //uncomment if want to check correctnes of implementation
+  //tws::srda(); //uncomment if want to check correctnes of implementation
   return 0;
 } 
