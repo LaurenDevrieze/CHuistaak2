@@ -75,7 +75,7 @@ int srda(){
 	y = multiply(transpose(X),t) + beta*x;
   };
 
-  #ifdef V2
+  #ifdef VERSION2
 	tws::cg( xtx_op_v2, x, b, 1.e-10, X.num_columns()*X.num_rows() ) ;
 	xtx_op_v2 ( x, b) ;
   #else
@@ -124,7 +124,7 @@ int main(int argc, char *argv[]) {
 	y = multiply(transpose(X),t) + beta*x;
   };
 
-  #ifdef V2
+  #ifdef VERSION2
 	tws::time_mv(xtx_op_v2,N,number_exp,discard);
   #else
 	tws::time_mv(xtx_op_v1,N,number_exp,discard);
