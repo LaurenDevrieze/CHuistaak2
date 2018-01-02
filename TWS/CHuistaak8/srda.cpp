@@ -7,7 +7,7 @@ Time spent: 4-5 hours
 Commands: g++ -Wall -std=c++14 -o srda srda.cpp
 		  for i in `seq 1 10`; do ./srda $((2**$i)) 100 5; done | tee mult1.out
 		  
-Discussion: 
+Only the files srda.cpp and matrix_expressions were changed. 
 */
 
 
@@ -66,16 +66,20 @@ int srda(){
 
   double beta=1e1;
 
-  /*auto xtx_op = [X,beta]( auto const& x, auto& y ){
+  auto xtx_op_v1 = []( vector<double> const& x, vector<double>& y ){
 	y = multiply(transpose(X),multiply(X,x)) + beta*x;
-  };*/
+  };
 	
-  auto xtx_op = [X,beta]( auto const& x, auto& y ){
-	auto t = multiply(X,x);
+  auto xtx_op_v2 = []( vector<double> const& x, vector<double>& y ){
+	vector<double> t = multiply(X,x);
 	y = multiply(transpose(X),t) + beta*x;
   };
 
-  tws::cg( xtx_op, x, b, 1.e-10, X.num_columns()*X.num_rows() ) ;
+  #ifdef V2
+	tws::cg( xtx_op_v2, x, b, 1.e-10, X.num_columns()*X.num_rows() ) ;
+  #else
+	tws::cg( xtx_op_v1, x, b, 1.e-10, X.num_columns()*X.num_rows() ) ;
+  #endif
 
   xtx_op ( x, b) ;
   std::cout<<"relative error: "<<tws::norm_2(b-b_ex)/tws::norm_2(b_ex)<<std::endl;
@@ -109,18 +113,21 @@ int main(int argc, char *argv[]) {
   double beta=1.0;
   tws::matrix<double> X(N,N,1.0);
   
-  /*auto xtx_op = [X,beta]( auto const& x, auto& y ){
-	//std::cout<<X.num_columns()<<std::endl;
-	//std::cout<<x.size()<<std::endl;
+  auto xtx_op_v1 = []( vector<double> const& x, vector<double>& y ){
 	y = multiply(transpose(X),multiply(X,x)) + beta*x;
-  };*/
+  };
 	
-  auto xtx_op = [X,beta]( auto const& x, auto& y ){
-	auto t = multiply(X,x);
+  auto xtx_op_v2 = []( vector<double> const& x, vector<double>& y ){
+	vector<double> t = multiply(X,x);
 	y = multiply(transpose(X),t) + beta*x;
   };
 
-  tws::time_mv(xtx_op,N,number_exp,discard);
+  #ifdef V2
+	tws::time_mv(xtx_op_v2,N,number_exp,discard);
+  #else
+	tws::time_mv(xtx_op_v1,N,number_exp,discard);
+  #endif
+  
     
   //tws::srda();
   return 0;

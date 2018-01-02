@@ -7,7 +7,7 @@ Time spent: 4-5 hours
 Commands: g++ -Wall -std=c++14 -o srda srda.cpp
 		  for i in `seq 1 10`; do ./srda $((2**$i)) 100 5; done | tee mult1.out
 		  
-Discussion: 
+Only the files srda.cpp and matrix_expressions were changed.
 */
 
 
