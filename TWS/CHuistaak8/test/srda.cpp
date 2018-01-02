@@ -122,6 +122,6 @@ int main(int argc, char *argv[]) {
 
   tws::time_mv(xtx_op,N,number_exp,discard);
     
-  //tws::srda();
+  tws::srda();
   return 0;
 } 
