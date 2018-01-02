@@ -58,7 +58,7 @@ int srda(){
   };*/
 	
   auto xtx_op = [X,beta]( auto const& x, auto& y ){
-	t = multiply(X,x);
+	auto t = multiply(X,x);
 	y = multiply(transpose(X),t) + beta*x;
   };
 
@@ -103,7 +103,7 @@ int main(int argc, char *argv[]) {
   };*/
 	
   auto xtx_op = [X,beta]( auto const& x, auto& y ){
-	t = multiply(X,x);
+	auto t = multiply(X,x);
 	y = multiply(transpose(X),t) + beta*x;
   };
 
