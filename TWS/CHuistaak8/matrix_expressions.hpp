@@ -143,11 +143,11 @@ class matrix_trans {
     }
 
     size_type num_columns() const {
-      return c_.num_columns() ;
+      return c_.num_rows() ;
     }
 
 		size_type num_rows() const {
-      return c_.num_rows() ;
+      return c_.num_columns() ;
     }
 
     value_type operator()( size_type i, size_type j ) const {
@@ -178,7 +178,7 @@ template <typename M, typename V>
         : m_( m )
         , v_( v )
         {
-			//assert( m.num_columns() == v.size() );
+			assert( m.num_columns() == v.size() );
         }
 
         size_type size() const {
