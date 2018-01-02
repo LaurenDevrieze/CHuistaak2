@@ -10,10 +10,25 @@ Lauren Devrieze
 
 Time spent: 4-5 hours
 
-Commands: g++ -Wall -std=c++14 -o srda srda.cpp (-DVERSION2)
-		  for i in `seq 1 10`; do ./srda $((2**$i)) 100 5; done | tee mult1.out
+Commands: 	g++ -Wall -std=c++14 -o srda srda.cpp (-DVERSION2)
+			for i in `seq 1 10`; do ./srda $((2**$i)) 100 5; done | tee mult1.out
 		  
 Only the files srda.cpp and matrix_expressions were changed.
+
+Output srda:
+relative error: 6.87699e-11
+train auc roc: 0.821888
+test auc roc: 0.564456
+
+
+Advantages expression templates: 
+	the result is only computed when it is assigned to something such that no temporary solutions
+	need to be stored away. It also makes it easier to define multiplications of multiplications like
+	is seen in version 1.
+	
+Disadvantages expression templates:
+	The complexity of computing a result can be higher like for example in version 1 because the 
+	same expression has to be calculated several times.
 
 Version 1: 	In 'multiply(X,x)' the complexity is O(N^2) since that's the complexity
 			of the inner product, but since in xtx_op_v1 'multiply(transpose(X),multiply(X,x))'
@@ -23,13 +38,7 @@ Version 1: 	In 'multiply(X,x)' the complexity is O(N^2) since that's the complex
 Version 2:	In this version multiply(X,x) is saved in a variable such that it doesn't have to
 			be calculated N times so then the complexity is O(N^2)
 */
-
-
-
-
-
-
-		
+	
 namespace tws{
 
 // xtx version 1	
@@ -84,16 +93,16 @@ int srda(){
  /*-------------------------------------------------------
     perform SRDA, define xtx_op below 
     -------------------------------------------------------*/
-  std::string s1("madelon/madelon_train.data");
+  /*std::string s1("madelon/madelon_train.data");
   auto X=tws::matrix_read<tws::matrix<double>>(s1);
   std::string s2("madelon/madelon_train.labels");
   auto labels=tws::vector_read<tws::vector<double>>(s2);
   std::string s3("madelon/madelon_valid.data");
   auto Xtest=tws::matrix_read<tws::matrix<double>>(s3);
   std::string s4("madelon/madelon_valid.labels");
-  auto test_labels=tws::vector_read<tws::vector<int>>(s4);
+  auto test_labels=tws::vector_read<tws::vector<int>>(s4);*/
 
-/*
+
   std::string s1("gaussian/gaussian_train.data");
   auto X=tws::matrix_read<tws::matrix<double>>(s1);
   std::string s2("gaussian/gaussian_train.labels");
@@ -102,7 +111,7 @@ int srda(){
   auto Xtest=tws::matrix_read<tws::matrix<double>>(s3);
   std::string s4("gaussian/gaussian_valid.labels");
   auto test_labels=tws::vector_read<tws::vector<int>>(s4); 
-*/
+
 
 
   tws::vector<double> x(X.num_columns(),0.) ; 
@@ -161,6 +170,6 @@ int main(int argc, char *argv[]) {
   
   tws::time_mv(xtx_op,N,number_exp,discard);
     
-  tws::srda();
+  tws::srda(); //uncomment if want to check correctnes of implementation
   return 0;
 } 
