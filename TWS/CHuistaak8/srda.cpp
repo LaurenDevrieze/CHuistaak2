@@ -107,8 +107,8 @@ int main(int argc, char *argv[]) {
   tws::matrix<double> X(N,N,1.0);
   
   auto xtx_op = [X,beta]( auto const& x, auto& y ){
-	std::cout<<X.num_columns()<<std::endl;
-	std::cout<<x.size()<<std::endl;
+	//std::cout<<X.num_columns()<<std::endl;
+	//std::cout<<x.size()<<std::endl;
 	y = multiply(transpose(X),multiply(X,x)) + beta*x;
 	
 	};

@@ -178,7 +178,7 @@ template <typename M, typename V>
         : m_( m )
         , v_( v )
         {
-			assert( m.num_columns() == v.size() );
+			//assert( m.num_columns() == v.size() );
         }
 
         size_type size() const {
