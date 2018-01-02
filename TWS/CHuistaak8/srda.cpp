@@ -1,3 +1,16 @@
+/*Homework 3 C++
+
+Lauren Devrieze
+
+Time spent: 4-5 hours
+
+Commands: g++ -Wall -std=c++14 -o srda srda.cpp
+		  for i in `seq 1 10`; do ./srda $((2**$i)) 100 5; done | tee mult1.out
+		  
+Discussion: 
+*/
+
+
 #include "vector.hpp"
 #include "matrix.hpp"
 #include "tws_util.hpp"
@@ -109,6 +122,6 @@ int main(int argc, char *argv[]) {
 
   tws::time_mv(xtx_op,N,number_exp,discard);
     
-  tws::srda();
+  //tws::srda();
   return 0;
 } 
