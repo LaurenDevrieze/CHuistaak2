@@ -66,12 +66,12 @@ int srda(){
 
   double beta=1e1;
 
-  auto xtx_op_v1 = [X,beta]( vector<double> const& x, vector<double>& y ){
+  auto xtx_op_v1 = [X,beta]( tws::vector<double> const& x, tws::vector<double>& y ){
 	y = multiply(transpose(X),multiply(X,x)) + beta*x;
   };
 	
-  auto xtx_op_v2 = [X,beta]( vector<double> const& x, vector<double>& y ){
-	vector<double> t = multiply(X,x);
+  auto xtx_op_v2 = [X,beta]( tws::vector<double> const& x, tws::vector<double>& y ){
+	tws::vector<double> t = multiply(X,x);
 	y = multiply(transpose(X),t) + beta*x;
   };
 
@@ -113,12 +113,12 @@ int main(int argc, char *argv[]) {
   double beta=1.0;
   tws::matrix<double> X(N,N,1.0);
   
-  auto xtx_op_v1 = [X,beta]( vector<double> const& x, vector<double>& y ){
+  auto xtx_op_v1 = [X,beta]( tws::vector<double> const& x, tws::vector<double>& y ){
 	y = multiply(transpose(X),multiply(X,x)) + beta*x;
   };
 	
-  auto xtx_op_v2 = [X,beta]( vector<double> const& x, vector<double>& y ){
-	vector<double> t = multiply(X,x);
+  auto xtx_op_v2 = [X,beta]( tws::vector<double> const& x, tws::vector<double>& y ){
+	tws::vector<double> t = multiply(X,x);
 	y = multiply(transpose(X),t) + beta*x;
   };
 
